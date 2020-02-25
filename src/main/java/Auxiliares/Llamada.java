@@ -1,5 +1,7 @@
 package Auxiliares;
 
+import es.uji.www.GeneradorDatosINE;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;

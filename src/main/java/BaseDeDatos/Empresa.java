@@ -1,5 +1,8 @@
+package BaseDeDatos;
+
 import Auxiliares.Direccion;
 import Auxiliares.Llamada;
+import Auxiliares.Tarifa;
 import es.uji.www.GeneradorDatosINE;
 
 import java.time.LocalDate;
@@ -12,6 +15,7 @@ public class Empresa extends Cliente {
 		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 	}
 
+	@Override
 	public Empresa darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
@@ -25,7 +29,6 @@ public class Empresa extends Cliente {
 
 		return new Empresa(baseDeDatos, nombreEmpresa, nifEmpresa, direccionEmpresa, correoElectronicoEmpresa,
 				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
-
 	}
 
 }

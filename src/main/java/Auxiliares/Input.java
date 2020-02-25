@@ -6,15 +6,18 @@ public class Input {
 
 	private static Scanner s = new Scanner(System.in);
 
-	String fromTerminalAnString() {
+	public String fromTerminalAnString(String text) {
+		IO.out.toTerminal(text, " ");
 		return s.nextLine();
 	}
 
-	int fromTerminalAnInt() {
+	public int fromTerminalAnInt(String text) {
+		IO.out.toTerminal(text, " ");
 		return s.nextInt();
 	}
 
-	double fromTerminalADouble() {
+	public double fromTerminalADouble(String text) {
+		IO.out.toTerminal(text, " ");
 		return s.nextDouble();
 	}
 

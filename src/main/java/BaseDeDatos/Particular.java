@@ -1,12 +1,15 @@
+package BaseDeDatos;
+
 import Auxiliares.Direccion;
 import Auxiliares.Llamada;
+import Auxiliares.Tarifa;
 import es.uji.www.GeneradorDatosINE;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Particular extends Cliente{
+public class Particular extends Cliente {
 
 	private String apellido;
 
@@ -15,6 +18,7 @@ public class Particular extends Cliente{
 		this.apellido = apellido;
 	}
 
+	@Override
 	public Particular darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
@@ -29,7 +33,6 @@ public class Particular extends Cliente{
 
 		return new Particular(baseDeDatos, nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
 				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
-
 	}
 
 }
