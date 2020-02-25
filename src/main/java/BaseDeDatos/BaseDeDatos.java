@@ -9,7 +9,9 @@ import java.time.LocalTime;
 
 public class BaseDeDatos {
 
-
+	public void nuevoCliente() {
+		
+	}
 
 	public Llamada generateRandomLlamada() {
 		GeneradorDatosINE g = new GeneradorDatosINE();
