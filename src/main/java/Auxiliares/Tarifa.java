@@ -1,12 +1,14 @@
+package Auxiliares;
+
 public class Tarifa {
 
 	private double precio;
 
-	Tarifa() {
+	public Tarifa() {
 		this.precio = 0.15;
 	}
 
-	Tarifa(double precio) {
+	public Tarifa(double precio) {
 		this.precio = precio;
 	}
 
