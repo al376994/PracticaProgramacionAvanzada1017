@@ -52,9 +52,9 @@ public class Empresa extends Cliente {
 
 	@Override
 	public String toString() {
-		return 	"Empresa" + "\nNombre: " + nombre + "\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
-				"\tPoblación: " + direccion.getPoblacion() + "\tCP: " + direccion.getCp() +
-				"\nCorreo electonico: " + correoElectronico;
+		return 	"Empresa" + "\nNombre: " + nombre + "\t\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
+				"\t\tPoblación: " + direccion.getPoblacion() + "\t\tCP: " + direccion.getCp() +
+				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa" + tarifa.getPrecio();
 	}
 
 }

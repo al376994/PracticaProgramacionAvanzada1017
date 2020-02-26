@@ -41,8 +41,7 @@ public class Input {
 	}
 
 	public void waitIntro() {
-		IO.out.toTerminal("Pulsa cualquier tecla para continuar.", " ");
-		s.nextLine();
+		IO.out.toTerminal("Pulsa Intro para continuar.", " ");
 		s.nextLine();
 	}
 

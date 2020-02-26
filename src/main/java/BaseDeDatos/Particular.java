@@ -22,7 +22,7 @@ public class Particular extends Cliente {
 	public Particular() {}
 
 	@Override
-	public Particular darDeAlta(BaseDeDatos baseDeDatos) {
+	public Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreParticular = g.getNombre();
@@ -39,7 +39,7 @@ public class Particular extends Cliente {
 	}
 
 	@Override
-	public Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
+	public Particular darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreParticular = IO.in.fromTerminalAskString("Nombre del cliente:");
@@ -57,9 +57,9 @@ public class Particular extends Cliente {
 
 	@Override
 	public String toString() {
-		return 	"Particular" + "\nNombre: " + nombre + " " + apellido + "\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
-				"\tPoblación: " + direccion.getPoblacion() + "\tCP: " + direccion.getCp() +
-				"\nCorreo electonico: " + correoElectronico;
+		return 	"Particular" + "\nNombre: " + nombre + " " + apellido + "\t\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
+				"\t\tPoblación: " + direccion.getPoblacion() + "\t\tCP: " + direccion.getCp() +
+				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa: " + tarifa.getPrecio();
 	}
 
 }
