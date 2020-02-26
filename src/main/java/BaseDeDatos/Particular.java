@@ -1,6 +1,7 @@
 package BaseDeDatos;
 
 import Auxiliares.Direccion;
+import Auxiliares.IO;
 import Auxiliares.Llamada;
 import Auxiliares.Tarifa;
 import es.uji.www.GeneradorDatosINE;
@@ -18,6 +19,8 @@ public class Particular extends Cliente {
 		this.apellido = apellido;
 	}
 
+	public Particular() {}
+
 	@Override
 	public Particular darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
@@ -26,13 +29,37 @@ public class Particular extends Cliente {
 		String nifParticular = g.getNIF();
 		String provinciaParticular = g.getProvincia();
 		Direccion direccionParticular = new Direccion(provinciaParticular, g.getPoblacion(provinciaParticular));
-		String correoElectronicoParticular = nifParticular + "@correo.com";
+		String correoElectronicoParticular = nombreParticular + "@correo.com";
 		List<Integer> facturasParticular = new ArrayList<>();
 		List<Llamada> llamadasParticular = new ArrayList<>();
 		String apellidoParticular = g.getApellido();
 
 		return new Particular(baseDeDatos, nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
 				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
+	}
+
+	@Override
+	public Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
+		GeneradorDatosINE g = new GeneradorDatosINE();
+
+		String nombreParticular = IO.in.fromTerminalAskString("Nombre del cliente:");
+		String nifParticular = IO.in.fromTerminalAskString("NIF del cliente:");
+		String provinciaParticular = IO.in.fromTerminalAskString("Provincia del cliente:");
+		Direccion direccionParticular = new Direccion(provinciaParticular, IO.in.fromTerminalAskString("Poblacion del cliente:"));
+		String correoElectronicoParticular = nombreParticular + "@correo.com";
+		List<Integer> facturasParticular = new ArrayList<>();
+		List<Llamada> llamadasParticular = new ArrayList<>();
+		String apellidoParticular = IO.in.fromTerminalAskString("Apellido del cliente:");
+
+		return new Particular(baseDeDatos, nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
+				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
+	}
+
+	@Override
+	public String toString() {
+		return 	"Particular" + "\nNombre: " + nombre + " " + apellido + "\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
+				"\tPoblación: " + direccion.getPoblacion() + "\tCP: " + direccion.getCp() +
+				"\nCorreo electonico: " + correoElectronico;
 	}
 
 }

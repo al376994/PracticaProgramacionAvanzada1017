@@ -37,16 +37,16 @@ public class MenuOpciones {
 		int option;
 		switch (set.toLowerCase()) {
 			case "principales":
-				option = IO.in.fromTerminalAnInt(inputText);
+				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionPrincipales(option);
 				break;
 			case "nuevoCliente":
-				option = IO.in.fromTerminalAnInt(inputText);
+				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionNuevoCliente(option);
 				break;
 			default:
 				IO.out.toTerminal("Error choosing a Menu Set(" + set + "), returning to Main Menu");
-				option = IO.in.fromTerminalAnInt("");
+				option = IO.in.fromTerminalAskInt("");
 				chooseOptionPrincipales(option);
 				break;
 		}
@@ -58,11 +58,16 @@ public class MenuOpciones {
 		switch (option) {
 			case 1:
 				IO.out.toTerminal("\n" + getOpciones(opcionesNuevoCliente));
-				option = IO.in.fromTerminalAnInt("\nEscribe el número de la opción que quieres elegir:");
-				chooseOptionNuevoCliente(option);
+				option = IO.in.fromTerminalAskInt("\nEscribe el número de la opción que quieres elegir:");
+				boolean satisfactory = chooseOptionNuevoCliente(option);
+				if (satisfactory) IO.out.toTerminal("Operacion completada con exito");
+				else IO.out.toTerminal("La operacion no se ha podido realizar");
+				IO.waitIntro();
 				break;
 			case 2:
-				IO.out.toTerminal(option);
+				String nif;
+				nif = IO.in.fromTerminalAskString("\nEscribe el nif del cliente que quieres borrar");
+				baseDeDatos.borrarCliente(nif);
 				break;
 			case 3:
 				IO.out.toTerminal(option);
@@ -71,7 +76,8 @@ public class MenuOpciones {
 				IO.out.toTerminal(option);
 				break;
 			case 5:
-				IO.out.toTerminal(option);
+				baseDeDatos.listarClientes();
+				IO.waitIntro();
 				break;
 			case 6:
 				IO.out.toTerminal(option);
@@ -95,25 +101,22 @@ public class MenuOpciones {
 		}
 	}
 
-	private void chooseOptionNuevoCliente(int option){
+	private boolean chooseOptionNuevoCliente(int option){
 		switch (option) {
 			case 1:
-				IO.out.toTerminal(option);
-				break;
+				return baseDeDatos.nuevoParticular(true);
 			case 2:
-				IO.out.toTerminal(option);
-				break;
+				return baseDeDatos.nuevoParticular(false);
 			case 3:
-				IO.out.toTerminal(option);
-				break;
+				return baseDeDatos.nuevaEmpresa(true);
 			case 4:
-				IO.out.toTerminal(option);
-				break;
+				return baseDeDatos.nuevaEmpresa(false);
 			default:
 				IO.out.toTerminal("Write one of the options.");
 				ChooseOptionSet("nuevoCliente");
 				break;
 		}
+		return false;
 	}
 
 }

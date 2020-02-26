@@ -12,15 +12,15 @@ import java.util.List;
 
 public abstract class Cliente implements TieneFecha {
 
-	private BaseDeDatos baseDeDatos;
-	private String nombre;
-	private String nif;
-	private Direccion direccion;
-	private String correoElectronico;
-	private LocalDate fechaDeAlta;
-	private Tarifa tarifa;
-	private List<Integer> facturas;
-	private List<Llamada> llamadas;
+	protected BaseDeDatos baseDeDatos;
+	protected String nombre;
+	protected String nif;
+	protected Direccion direccion;
+	protected String correoElectronico;
+	protected LocalDate fechaDeAlta;
+	protected Tarifa tarifa;
+	protected List<Integer> facturas;
+	protected List<Llamada> llamadas;
 
 
 	public Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, List<Integer> facturas, List<Llamada> llamadas) {
@@ -35,7 +35,14 @@ public abstract class Cliente implements TieneFecha {
 		this.llamadas = llamadas;
 	}
 
+	public Cliente() {}
+
 	public abstract <T extends Cliente> T darDeAlta(BaseDeDatos baseDeDatos);
+	public abstract <T extends Cliente> T darDeAltaRandom(BaseDeDatos baseDeDatos);
+
+	public String getNif() {
+		return nif;
+	}
 
 	public void cambiarTarifa(double precio) {
 		tarifa = new Tarifa(precio);

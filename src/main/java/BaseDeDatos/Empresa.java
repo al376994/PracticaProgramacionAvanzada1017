@@ -1,6 +1,7 @@
 package BaseDeDatos;
 
 import Auxiliares.Direccion;
+import Auxiliares.IO;
 import Auxiliares.Llamada;
 import Auxiliares.Tarifa;
 import es.uji.www.GeneradorDatosINE;
@@ -15,20 +16,45 @@ public class Empresa extends Cliente {
 		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 	}
 
+	public Empresa() {}
+
 	@Override
-	public Empresa darDeAlta(BaseDeDatos baseDeDatos) {
+	public Empresa darDeAltaRandom(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreEmpresa = g.getNombre();
 		String nifEmpresa = g.getNIF();
 		String provinciaEmpresa = g.getProvincia();
 		Direccion direccionEmpresa = new Direccion(provinciaEmpresa, g.getPoblacion(provinciaEmpresa));
-		String correoElectronicoEmpresa = nifEmpresa + "@correo.com";
+		String correoElectronicoEmpresa = nombreEmpresa + "@correo.com";
 		List<Integer> facturasEmpresa = new ArrayList<>();
 		List<Llamada> llamadasEmpresa = new ArrayList<>();
 
 		return new Empresa(baseDeDatos, nombreEmpresa, nifEmpresa, direccionEmpresa, correoElectronicoEmpresa,
 				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
+	}
+
+	@Override
+	public Empresa darDeAlta(BaseDeDatos baseDeDatos) {
+		GeneradorDatosINE g = new GeneradorDatosINE();
+
+		String nombreEmpresa = IO.in.fromTerminalAskString("Nombre de la empresa:");
+		String nifEmpresa = IO.in.fromTerminalAskString("NIF de la empresa:");
+		String provinciaEmpresa = IO.in.fromTerminalAskString("Provincia de la empresa:");
+		Direccion direccionEmpresa = new Direccion(provinciaEmpresa, IO.in.fromTerminalAskString("Población de la poblacion:"));
+		String correoElectronicoEmpresa = nombreEmpresa + "@correo.com";
+		List<Integer> facturasEmpresa = new ArrayList<>();
+		List<Llamada> llamadasEmpresa = new ArrayList<>();
+
+		return new Empresa(baseDeDatos, nombreEmpresa, nifEmpresa, direccionEmpresa, correoElectronicoEmpresa,
+				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
+	}
+
+	@Override
+	public String toString() {
+		return 	"Empresa" + "\nNombre: " + nombre + "\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
+				"\tPoblación: " + direccion.getPoblacion() + "\tCP: " + direccion.getCp() +
+				"\nCorreo electonico: " + correoElectronico;
 	}
 
 }
