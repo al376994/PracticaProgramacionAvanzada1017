@@ -8,13 +8,14 @@ import es.uji.www.GeneradorDatosINE;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class Particular extends Cliente {
 
 	private String apellido;
 
-	private Particular(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, List<Integer> facturas, List<Llamada> llamadas, String apellido) {
+	private Particular(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas, String apellido) {
 		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 		this.apellido = apellido;
 	}
@@ -30,7 +31,7 @@ public class Particular extends Cliente {
 		String provinciaParticular = g.getProvincia();
 		Direccion direccionParticular = new Direccion(provinciaParticular, g.getPoblacion(provinciaParticular));
 		String correoElectronicoParticular = nombreParticular + "@correo.com";
-		List<Integer> facturasParticular = new ArrayList<>();
+		Hashtable<String, Factura> facturasParticular = new Hashtable<String, Factura>();
 		List<Llamada> llamadasParticular = new ArrayList<>();
 		String apellidoParticular = g.getApellido();
 
@@ -47,7 +48,7 @@ public class Particular extends Cliente {
 		String provinciaParticular = IO.in.fromTerminalAskString("Provincia del cliente:");
 		Direccion direccionParticular = new Direccion(provinciaParticular, IO.in.fromTerminalAskString("Poblacion del cliente:"));
 		String correoElectronicoParticular = nombreParticular + "@correo.com";
-		List<Integer> facturasParticular = new ArrayList<>();
+		Hashtable<String, Factura> facturasParticular = new Hashtable<String, Factura>();
 		List<Llamada> llamadasParticular = new ArrayList<>();
 		String apellidoParticular = IO.in.fromTerminalAskString("Apellido del cliente:");
 

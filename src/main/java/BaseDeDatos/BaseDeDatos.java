@@ -20,6 +20,10 @@ public class BaseDeDatos {
 	public Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
 	public Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
 
+	//Esto es necesario por una limitación de java, lo ideal seria crear metodos static para los metodos darDeAlta de Cliente,
+	//pero para ello se tendria que hacer static el metodo darDeAlta de Cliente, metodo que sobreescriben sus hijos, lo que
+	//causaria que el metodo no se pudiera sobreescribir. Para solucionar esto creamos una empresa y un particular vacios que
+	//llaman a funciones publicas no static.
 	private Empresa voidEmpresa = new Empresa();
 	private Particular voidParticular = new Particular();
 
@@ -118,10 +122,11 @@ public class BaseDeDatos {
 	public boolean nuevaFactura(boolean random) {
 		Cliente cliente = askForCliente();
 		if (random) {
-
+			Factura.darDeAltaRandom(this, cliente);
 		} else {
-
+			Factura.darDeAlta(this, cliente);
 		}
+		return true;
 	}
 
 	public void exitWithoutSave() {
@@ -145,7 +150,7 @@ public class BaseDeDatos {
 		return Duration.ofSeconds( (long)(Math.random() * ((max - min) + 1)) + min );
 	}
 
-	private LocalDate askDate(String extra) {
+	public static LocalDate askDate(String extra) {
 		int yyyy = IO.in.fromTerminalAskInt("Año " + extra + ": ");
 		int mm = IO.in.fromTerminalAskInt("Mes " + extra + ": ");
 		int dd = IO.in.fromTerminalAskInt("Día " + extra + ": ");
@@ -153,7 +158,7 @@ public class BaseDeDatos {
 
 	}
 
-	private LocalTime askTime(String extra) {
+	public static LocalTime askTime(String extra) {
 		int hh = IO.in.fromTerminalAskInt("Hora " + extra + ": ");
 		int mm = IO.in.fromTerminalAskInt("Minuto " + extra + ": ");
 		int ss = IO.in.fromTerminalAskInt("Segundo " + extra + ": ");

@@ -22,10 +22,10 @@ public abstract class Cliente implements TieneFecha {
 	protected Tarifa tarifa;
 	protected Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
 	protected List<Llamada> llamadas;
-	int codigoFacturaActual = 1;
+	protected int codigoFacturaActual = 1;
 
 
-	public Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, List<Integer> facturas, List<Llamada> llamadas) {
+	public Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
 		this.baseDeDatos = baseDeDatos;
 		this.nombre = nombre;
 		this.nif = nif;
@@ -65,7 +65,7 @@ public abstract class Cliente implements TieneFecha {
 	public String getNextFacturaCodigo() {
 		int cod = codigoFacturaActual;
 		codigoFacturaActual++;
-		return 
+		return nif + cod;
 	}
 
 	@Override
