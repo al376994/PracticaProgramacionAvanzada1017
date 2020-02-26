@@ -3,7 +3,6 @@ package BaseDeDatos;
 import Auxiliares.IO;
 import Auxiliares.Llamada;
 import es.uji.www.GeneradorDatosINE;
-import jdk.vm.ci.meta.Local;
 
 import java.time.Duration;
 import java.time.LocalDate;

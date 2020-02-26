@@ -9,8 +9,7 @@ public class MenuTerminal {
 
 		MenuOpciones menuOpciones = new MenuOpciones();
 		IO.out.toTerminal("Menu de Terminal de la aplicación de Facturación");
-		printOptions(menuOpciones.listaOpcionesPrincipales);
-		menuOpciones.chooseOptionSet("principales");
+		menuOpciones.chooseOptionSet(1);
 	}
 
 	static private void printOptions(String[] options) {
