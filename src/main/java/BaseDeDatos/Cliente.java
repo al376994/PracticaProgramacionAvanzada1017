@@ -8,6 +8,7 @@ import Auxiliares.TieneFecha;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Hashtable;
 import java.util.List;
 
 public abstract class Cliente implements TieneFecha {
@@ -19,8 +20,9 @@ public abstract class Cliente implements TieneFecha {
 	protected String correoElectronico;
 	protected LocalDate fechaDeAlta;
 	protected Tarifa tarifa;
-	protected List<Integer> facturas;
+	protected Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
 	protected List<Llamada> llamadas;
+	int codigoFacturaActual = 1;
 
 
 	public Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, List<Integer> facturas, List<Llamada> llamadas) {
@@ -58,6 +60,12 @@ public abstract class Cliente implements TieneFecha {
 
 	public void darDeAltaLlamada(String telefono, LocalDate date, LocalTime time, Duration duration) {
 		llamadas.add(new Llamada(telefono, date, time, duration));
+	}
+
+	public String getNextFacturaCodigo() {
+		int cod = codigoFacturaActual;
+		codigoFacturaActual++;
+		return 
 	}
 
 	@Override

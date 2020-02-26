@@ -54,7 +54,8 @@ public class Empresa extends Cliente {
 	public String toString() {
 		return 	"Empresa" + "\nNombre: " + nombre + "\t\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
 				"\t\tPoblación: " + direccion.getPoblacion() + "\t\tCP: " + direccion.getCp() +
-				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa" + tarifa.getPrecio();
+				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa" + tarifa.getPrecio() +
+				"\nFecha de alta: " + fechaDeAlta.format(BaseDeDatos.dmy);
 	}
 
 }

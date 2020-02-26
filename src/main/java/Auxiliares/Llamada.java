@@ -1,5 +1,6 @@
 package Auxiliares;
 
+import BaseDeDatos.BaseDeDatos;
 import es.uji.www.GeneradorDatosINE;
 
 import java.time.Duration;
@@ -28,9 +29,7 @@ public class Llamada implements TieneFecha {
 
 	@Override
 	public String toString(){
-		DateTimeFormatter dmy = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		DateTimeFormatter hms = DateTimeFormatter.ofPattern("hh:mm:ss");
-		return "Llamada al número " + telefono + " el " + fecha.format(dmy) +
-				" a las " + hora.format(hms) + " con una duración de " + duracion.getSeconds() + " segundos.";
+		return "Llamada al número " + telefono + " el " + fecha.format(BaseDeDatos.dmy) +
+				" a las " + hora.format(BaseDeDatos.hms) + " con una duración de " + duracion.getSeconds() + " segundos.";
 	}
 }

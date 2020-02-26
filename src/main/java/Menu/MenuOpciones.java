@@ -127,7 +127,6 @@ public class MenuOpciones {
 	private boolean chooseOptionNuevoCliente(int option){
 		switch (option) {
 			case 1:
-				IO.out.toTerminal("Estoy aqui, option: " + option);
 				return baseDeDatos.nuevoParticular(false);
 			case 2:
 				return baseDeDatos.nuevoParticular(true);
@@ -137,6 +136,7 @@ public class MenuOpciones {
 				return baseDeDatos.nuevaEmpresa(true);
 			default:
 				IO.out.toTerminal("Write one of the options.");
+				chooseOptionSet(OPCIONES_NUEVO_CLIENTE);
 				break;
 		}
 		return false;
@@ -145,9 +145,9 @@ public class MenuOpciones {
 	private boolean chooseOptionNuevaLlamada(int option){
 		switch (option) {
 			case 1:
-				return baseDeDatos.darDeAltaLlamada(false);
+				return baseDeDatos.nuevaLlamada(false);
 			case 2:
-				return baseDeDatos.darDeAltaLlamada(true);
+				return baseDeDatos.nuevaLlamada(true);
 			case 3:
 				chooseOptionSet(OPCIONES_PRINCIPALES);
 				break;

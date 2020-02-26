@@ -7,13 +7,18 @@ import es.uji.www.GeneradorDatosINE;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
 
 public class BaseDeDatos {
 
 	private final String SEPARATOR = "\n----------------------------------------------------------------------------------------------------";
 
+	public static final DateTimeFormatter dmy = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static final DateTimeFormatter hms = DateTimeFormatter.ofPattern("hh:mm:ss");
+
 	public Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
+	public Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
 
 	private Empresa voidEmpresa = new Empresa();
 	private Particular voidParticular = new Particular();
@@ -85,7 +90,7 @@ public class BaseDeDatos {
 		IO.out.toTerminal(SEPARATOR);
 	}
 
-	public boolean darDeAltaLlamada(boolean random) {
+	public boolean nuevaLlamada(boolean random) {
 		Cliente cliente = askForCliente();
 		if (random) {
 			cliente.darDeAltaLlamada();
@@ -108,6 +113,15 @@ public class BaseDeDatos {
 		}
 		IO.out.toTerminal(SEPARATOR);
 		IO.waitIntro();
+	}
+
+	public boolean nuevaFactura(boolean random) {
+		Cliente cliente = askForCliente();
+		if (random) {
+
+		} else {
+
+		}
 	}
 
 	public void exitWithoutSave() {
