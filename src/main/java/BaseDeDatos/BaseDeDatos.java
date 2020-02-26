@@ -3,6 +3,7 @@ package BaseDeDatos;
 import Auxiliares.IO;
 import Auxiliares.Llamada;
 import es.uji.www.GeneradorDatosINE;
+import jdk.vm.ci.meta.Local;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -39,7 +40,9 @@ public class BaseDeDatos {
 		return false;
 	}
 
-	public boolean borrarCliente(String nif) {
+	public boolean borrarCliente() {
+		String nif;
+		nif = IO.in.fromTerminalAskString("\nEscribe el nif del cliente que quieres borrar: ");
 		if (clientes.containsKey(nif)) {
 			clientes.remove(nif);
 			return true;
@@ -68,10 +71,32 @@ public class BaseDeDatos {
 		return cliente;
 	}
 
+	public void printCliente() {
+		Cliente cliente = askForCliente();
+		IO.out.toTerminal(cliente);
+	}
+
 	public void listarClientes() {
 		for (Cliente cliente : clientes.values()) {
 			IO.out.toTerminal(cliente + "\n----------------------------------------------------------------------------------------------------");
 		}
+	}
+
+	public void darDeAltaLlamada(boolean notRandom) {
+		Cliente cliente = askForCliente();
+		if (notRandom) {
+			String telefono = IO.in.fromTerminalAskString("Número de telefono: ");
+			LocalDate date = askDate("de la llamada");
+			LocalTime time = askTime("de la llamada");
+			Duration duracion = Duration.ofSeconds(IO.in.fromTerminalAskInt("Duracion de la llamada: "));
+			cliente.darDeAltaLlamada(telefono, date, time, duracion);
+		} else {
+			cliente.darDeAltaLlamada();
+		}
+	}
+
+	public void exitWithoutSave() {
+		System.exit(0);
 	}
 
 	public Llamada generateRandomLlamada() {
@@ -89,6 +114,21 @@ public class BaseDeDatos {
 		}
 		if (min == max) return Duration.ofSeconds(min);
 		return Duration.ofSeconds( (long)(Math.random() * ((max - min) + 1)) + min );
+	}
+
+	private LocalDate askDate(String extra) {
+		int yyyy = IO.in.fromTerminalAskInt("Año " + extra + ": ");
+		int mm = IO.in.fromTerminalAskInt("Mes " + extra + ": ");
+		int dd = IO.in.fromTerminalAskInt("Día " + extra + ": ");
+		return LocalDate.of(yyyy, mm, dd);
+
+	}
+
+	private LocalTime askTime(String extra) {
+		int hh = IO.in.fromTerminalAskInt("Hora " + extra + ": ");
+		int mm = IO.in.fromTerminalAskInt("Minuto " + extra + ": ");
+		int ss = IO.in.fromTerminalAskInt("Segundo " + extra + ": ");
+		return LocalTime.of(hh, mm, ss);
 	}
 
 }
