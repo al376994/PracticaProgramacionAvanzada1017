@@ -8,7 +8,7 @@ public class Main {
 
         BaseDeDatos baseDeDatos;
 
-        if (args.length == 0) {
+        if (BaseDeDatos.EN_TERMINAL) {
             baseDeDatos = new BaseDeDatos();
             MenuTerminal.run(baseDeDatos);
         }

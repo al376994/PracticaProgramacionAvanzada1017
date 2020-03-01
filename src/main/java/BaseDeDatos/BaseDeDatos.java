@@ -77,7 +77,7 @@ public class BaseDeDatos {
 		for (Cliente cliente : clientes.values()) {
 			IO.out.toTerminal(cliente + SEPARATOR);
 		}
-		IO.out.toTerminal(SEPARATOR);
+		if (EN_TERMINAL) IO.out.toTerminal(SEPARATOR);
 	}
 
 	public boolean nuevaLlamada(boolean random) {
@@ -97,7 +97,7 @@ public class BaseDeDatos {
 		for (Llamada llamada : cliente.llamadas) {
 			IO.out.toTerminal(llamada + SEPARATOR);
 		}
-		IO.out.toTerminal(SEPARATOR);
+		if (EN_TERMINAL) IO.out.toTerminal(SEPARATOR);
 		if (EN_TERMINAL) IO.waitIntro();
 	}
 
