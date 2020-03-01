@@ -46,8 +46,8 @@ public abstract class Cliente implements TieneFecha {
 		return nif;
 	}
 
-	public void cambiarTarifa(double precio) {
-		tarifa = new Tarifa(precio);
+	public void cambiarTarifa(Tarifa tarifa) {
+		this.tarifa = tarifa;
 	}
 
 	public List<Llamada> listaLlamadas() {
@@ -58,8 +58,8 @@ public abstract class Cliente implements TieneFecha {
 		llamadas.add(baseDeDatos.generateRandomLlamada());
 	}
 
-	public void darDeAltaLlamada(String telefono, LocalDate date, LocalTime time, Duration duration) {
-		llamadas.add(new Llamada(telefono, date, time, duration));
+	public void darDeAltaLlamada(Llamada llamada) {
+		llamadas.add(llamada);
 	}
 
 	public String getNextFacturaCodigo() {
@@ -75,7 +75,10 @@ public abstract class Cliente implements TieneFecha {
 
 	@Override
 	public String toString() {
-		return "";
+		return "\t\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
+				"\t\tPoblación: " + direccion.getPoblacion() + "\t\tCP: " + direccion.getCp() +
+				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa" + tarifa.getPrecio() +
+				"\nFecha de alta: " + fechaDeAlta.format(BaseDeDatos.DMY);
 	}
 
 }

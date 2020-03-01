@@ -38,11 +38,12 @@ public class Empresa extends Cliente {
 	@Override
 	public Empresa darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
+		String[] data = IO.in.askNewClienteData(false);
 
-		String nombreEmpresa = IO.in.fromTerminalAskString("Nombre de la empresa:");
-		String nifEmpresa = IO.in.fromTerminalAskString("NIF de la empresa:");
-		String provinciaEmpresa = IO.in.fromTerminalAskString("Provincia de la empresa:");
-		Direccion direccionEmpresa = new Direccion(provinciaEmpresa, IO.in.fromTerminalAskString("Población de la poblacion:"));
+		String nombreEmpresa = data[0];
+		String nifEmpresa = data[1];
+		String provinciaEmpresa = data[2];
+		Direccion direccionEmpresa = new Direccion(provinciaEmpresa, data[3]);
 		String correoElectronicoEmpresa = nombreEmpresa + "@correo.com";
 		Hashtable<String, Factura> facturasEmpresa = new Hashtable<String, Factura>();
 		List<Llamada> llamadasEmpresa = new ArrayList<>();
@@ -53,10 +54,7 @@ public class Empresa extends Cliente {
 
 	@Override
 	public String toString() {
-		return 	"Empresa" + "\nNombre: " + nombre + "\t\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
-				"\t\tPoblación: " + direccion.getPoblacion() + "\t\tCP: " + direccion.getCp() +
-				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa" + tarifa.getPrecio() +
-				"\nFecha de alta: " + fechaDeAlta.format(BaseDeDatos.dmy);
+		return 	"Empresa" + "\nNombre: " + nombre + super.toString();
 	}
 
 }

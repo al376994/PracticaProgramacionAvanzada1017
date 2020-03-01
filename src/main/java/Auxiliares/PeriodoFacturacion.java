@@ -29,6 +29,6 @@ public class PeriodoFacturacion {
 
 	@Override
 	public String toString() {
-		return "Desde " + start.format(BaseDeDatos.dmy) + " asta " + end.format(BaseDeDatos.dmy);
+		return "Desde " + start.format(BaseDeDatos.DMY) + " asta " + end.format(BaseDeDatos.DMY);
 	}
 }

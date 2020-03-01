@@ -42,15 +42,16 @@ public class Particular extends Cliente {
 	@Override
 	public Particular darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
+		String[] data = IO.in.askNewClienteData(true);
 
-		String nombreParticular = IO.in.fromTerminalAskString("Nombre del cliente:");
-		String nifParticular = IO.in.fromTerminalAskString("NIF del cliente:");
-		String provinciaParticular = IO.in.fromTerminalAskString("Provincia del cliente:");
-		Direccion direccionParticular = new Direccion(provinciaParticular, IO.in.fromTerminalAskString("Poblacion del cliente:"));
+		String nombreParticular = data[0];
+		String nifParticular = data[1];
+		String provinciaParticular = data[2];
+		Direccion direccionParticular = new Direccion(provinciaParticular, data[3]);
 		String correoElectronicoParticular = nombreParticular + "@correo.com";
 		Hashtable<String, Factura> facturasParticular = new Hashtable<String, Factura>();
 		List<Llamada> llamadasParticular = new ArrayList<>();
-		String apellidoParticular = IO.in.fromTerminalAskString("Apellido del cliente:");
+		String apellidoParticular = data[4];
 
 		return new Particular(baseDeDatos, nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
 				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
@@ -58,10 +59,7 @@ public class Particular extends Cliente {
 
 	@Override
 	public String toString() {
-		return 	"Particular" + "\nNombre: " + nombre + " " + apellido + "\t\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
-				"\t\tPoblación: " + direccion.getPoblacion() + "\t\tCP: " + direccion.getCp() +
-				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa: " + tarifa.getPrecio() +
-				"\nFecha de alta: " + fechaDeAlta.format(BaseDeDatos.dmy);
+		return 	"Particular" + "\nNombre: " + nombre + " " + apellido + super.toString();
 	}
 
 }

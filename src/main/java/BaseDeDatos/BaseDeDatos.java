@@ -14,18 +14,20 @@ public class BaseDeDatos {
 
 	private final String SEPARATOR = "\n----------------------------------------------------------------------------------------------------";
 
-	public static final DateTimeFormatter dmy = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	public static final DateTimeFormatter hms = DateTimeFormatter.ofPattern("hh:mm:ss");
+	public static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static final DateTimeFormatter HMS = DateTimeFormatter.ofPattern("hh:mm:ss");
+	public static final boolean EN_TERMINAL = true;
 
-	public Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
-	public Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
+	public static Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
+	public static Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
 
-	//Esto es necesario por una limitación de java, lo ideal seria crear metodos static para los metodos darDeAlta de Cliente,
-	//pero para ello se tendria que hacer static el metodo darDeAlta de Cliente, metodo que sobreescriben sus hijos, lo que
-	//causaria que el metodo no se pudiera sobreescribir. Para solucionar esto creamos una empresa y un particular vacios que
-	//llaman a funciones publicas no static.
 	private Empresa voidEmpresa = new Empresa();
 	private Particular voidParticular = new Particular();
+
+	public static Cliente getCliente(String nif) {
+		if (clientes.containsKey(nif)) return clientes.get(nif);
+		else return null;
+	}
 
 	public boolean nuevoParticular(boolean random) {
 		Cliente cliente;
@@ -61,30 +63,14 @@ public class BaseDeDatos {
 	}
 
 	public void cambiarTarifa() {
-		Cliente cliente = askForCliente();
-		double tarifa = IO.in.fromTerminalAskDouble("Introduce el precio de la nueva tarifa: ");
-		cliente.cambiarTarifa(tarifa);
-	}
-
-	private Cliente getCliente(String nif) {
-		if (clientes.containsKey(nif)) return clientes.get(nif);
-		else return null;
-	}
-
-	private Cliente askForCliente() {
-		Cliente cliente = null;
-		while (cliente == null) {
-			String nif = IO.in.fromTerminalAskString("Introduce el NIF del cliente: ");
-			cliente = getCliente(nif);
-			if (cliente == null) IO.out.toTerminal("El NIF introducido no es válido");
-		}
-		return cliente;
+		Cliente cliente = IO.in.askForCliente();
+		cliente.cambiarTarifa(IO.in.askForTarifa());
 	}
 
 	public void printCliente() {
-		Cliente cliente = askForCliente();
+		Cliente cliente = IO.in.askForCliente();
 		IO.out.toTerminal(cliente);
-		IO.waitIntro();
+		if (EN_TERMINAL) IO.waitIntro();
 	}
 
 	public void listarClientes() {
@@ -95,32 +81,28 @@ public class BaseDeDatos {
 	}
 
 	public boolean nuevaLlamada(boolean random) {
-		Cliente cliente = askForCliente();
+		Cliente cliente = IO.in.askForCliente();
 		if (random) {
 			cliente.darDeAltaLlamada();
 			return true;
 		} else {
-			String telefono = IO.in.fromTerminalAskString("Número de telefono: ");
-			LocalDate date = askDate("de la llamada");
-			LocalTime time = askTime("de la llamada");
-			Duration duracion = Duration.ofSeconds(IO.in.fromTerminalAskInt("Duracion de la llamada: "));
-			cliente.darDeAltaLlamada(telefono, date, time, duracion);
+			cliente.darDeAltaLlamada(IO.in.askNewLlamadaData());
 			return true;
 		}
 	}
 
 	public void listarLlamadas() {
 		IO.out.toTerminal("\n");
-		Cliente cliente = askForCliente();
+		Cliente cliente = IO.in.askForCliente();
 		for (Llamada llamada : cliente.llamadas) {
 			IO.out.toTerminal(llamada + SEPARATOR);
 		}
 		IO.out.toTerminal(SEPARATOR);
-		IO.waitIntro();
+		if (EN_TERMINAL) IO.waitIntro();
 	}
 
 	public boolean nuevaFactura(boolean random) {
-		Cliente cliente = askForCliente();
+		Cliente cliente = IO.in.askForCliente();
 		if (random) {
 			Factura.darDeAltaRandom(this, cliente);
 		} else {
@@ -148,21 +130,6 @@ public class BaseDeDatos {
 		}
 		if (min == max) return Duration.ofSeconds(min);
 		return Duration.ofSeconds( (long)(Math.random() * ((max - min) + 1)) + min );
-	}
-
-	public static LocalDate askDate(String extra) {
-		int yyyy = IO.in.fromTerminalAskInt("Año " + extra + ": ");
-		int mm = IO.in.fromTerminalAskInt("Mes " + extra + ": ");
-		int dd = IO.in.fromTerminalAskInt("Día " + extra + ": ");
-		return LocalDate.of(yyyy, mm, dd);
-
-	}
-
-	public static LocalTime askTime(String extra) {
-		int hh = IO.in.fromTerminalAskInt("Hora " + extra + ": ");
-		int mm = IO.in.fromTerminalAskInt("Minuto " + extra + ": ");
-		int ss = IO.in.fromTerminalAskInt("Segundo " + extra + ": ");
-		return LocalTime.of(hh, mm, ss);
 	}
 
 }

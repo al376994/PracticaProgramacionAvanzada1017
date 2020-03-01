@@ -20,7 +20,8 @@ public class MenuOpciones {
 			"7. \tListar todas las llamadas de un cliente",
 			"8. \tEmitir una factura para un cliente, calculando el importe de la misma en función de las llamadas",
 			"9. \tRecuperar los datos de una factura a partir de su código",
-			"10.\tRecuperar todas las facturas de un cliente"
+			"10.\tRecuperar todas las facturas de un cliente",
+			"11.\tSalir"
 	};
 
 	final String[] listaOpcionesNuevoCliente = {
@@ -72,20 +73,18 @@ public class MenuOpciones {
 				boolean satisfactory = chooseOptionNuevoCliente(option);
 				printIsSatisfactory(satisfactory);
 				return satisfactory;
-				break;
 			case 3:
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaLlamada));
 				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionNuevaLlamada(option);
 				printIsSatisfactory(true);
-				break;
 			case 4:
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaFactura));
 				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionNuevaFactura(option);
 				printIsSatisfactory(true);
-				break;
 			case -1:
+				IO.out.toTerminal("\n" + getOpciones(listaOpcionesSalida));
 				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionSalida(option);
 			default:
@@ -94,7 +93,7 @@ public class MenuOpciones {
 				chooseOptionPrincipales(option);
 				break;
 		}
-		chooseOptionSet(OPCIONES_PRINCIPALES);
+		return chooseOptionSet(OPCIONES_PRINCIPALES);
 	}
 
 	private void chooseOptionPrincipales(int option) {
@@ -134,7 +133,7 @@ public class MenuOpciones {
 				chooseOptionSet(OPCIONES_SALIDA);
 				baseDeDatos.exitWithoutSave();
 			default:
-				IO.out.toTerminal(wrongOption);
+				wrongOptionWriten(OPCIONES_PRINCIPALES);
 				break;
 		}
 	}
@@ -176,16 +175,12 @@ public class MenuOpciones {
 		switch (option) {
 			case 1:
 				return baseDeDatos.nuevaFactura(false);
-				break;
 			case 2:
 				return baseDeDatos.nuevaFactura(true);
-				break;
 			case 3:
-				chooseOptionSet(OPCIONES_PRINCIPALES);
-				break;
+				return chooseOptionSet(OPCIONES_PRINCIPALES);
 			default:
-				wrongOptionWriten(OPCIONES_NUEVA_FACTURA);
-				break;
+				return wrongOptionWriten(OPCIONES_NUEVA_FACTURA);
 		}
 	}
 
@@ -218,6 +213,7 @@ public class MenuOpciones {
 
 	private boolean wrongOptionWriten(int set) {
 		IO.out.toTerminal(wrongOption);
+		IO.waitIntro();
 		return chooseOptionSet(set);
 	}
 
