@@ -20,7 +20,7 @@ public class PeriodoFacturacion {
 	}
 
 	public boolean inPeriodoFacturacion(LocalDate date) {
-		if (date.isAfter(start) && date.isBefore(end)) return true;
+		if (date.isAfter(start.minusDays(1)) && date.isBefore(end)) return true;
 		else return false;
 	}
 

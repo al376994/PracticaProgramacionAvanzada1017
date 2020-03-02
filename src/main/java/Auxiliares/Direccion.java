@@ -8,7 +8,7 @@ public class Direccion {
 	private String provincia;
 	private String poblacion;
 	static private Hashtable<String, Integer> listedCp = new Hashtable<>();
-	static private int actualCp = 1;
+	static private int actualCp = 0;
 
 	public Direccion(String provincia, String poblacion) {
 		this.provincia = provincia;

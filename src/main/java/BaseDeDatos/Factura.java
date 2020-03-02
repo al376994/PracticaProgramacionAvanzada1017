@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 public class Factura implements TieneFecha {
 
-	private static int codigoFacturaActual = 1;
-
 	private BaseDeDatos baseDeDatos;
 	private String codigo;
 	private Tarifa tarifa;
@@ -17,7 +15,7 @@ public class Factura implements TieneFecha {
 	private Cliente cliente;
 	private double importe;
 
-	private Factura(BaseDeDatos baseDeDatos, String codigo, Tarifa tarifa, LocalDate fechaEmision, PeriodoFacturacion periodoFacturacion, Cliente cliente) {
+	public Factura(BaseDeDatos baseDeDatos, String codigo, Tarifa tarifa, LocalDate fechaEmision, PeriodoFacturacion periodoFacturacion, Cliente cliente) {
 		this.baseDeDatos = baseDeDatos;
 		this.codigo = codigo;
 		this.tarifa = tarifa;
@@ -29,6 +27,14 @@ public class Factura implements TieneFecha {
 
 	public String getCodigo() {
 		return codigo;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public double getImporte() {
+		return importe;
 	}
 
 	private double calculaImporte(Tarifa tarifa, PeriodoFacturacion periodoFacturacion, Cliente cliente) {

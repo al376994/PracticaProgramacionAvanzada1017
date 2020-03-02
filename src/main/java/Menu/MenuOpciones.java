@@ -209,7 +209,7 @@ public class MenuOpciones {
 	}
 
 	private void borrarCliente() {
-		boolean satisfactory = baseDeDatos.borrarCliente();
+		boolean satisfactory = baseDeDatos.askBorrarCliente();
 		printIsSatisfactory(satisfactory);
 	}
 

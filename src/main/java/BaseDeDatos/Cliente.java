@@ -25,7 +25,6 @@ public abstract class Cliente implements TieneFecha {
 	private List<Llamada> llamadas;
 	private int codigoFacturaActual = 1;
 
-
 	public Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
 		this.baseDeDatos = baseDeDatos;
 		this.nombre = nombre;
@@ -78,9 +77,12 @@ public abstract class Cliente implements TieneFecha {
 		facturas.put(factura.getCodigo(), factura);
 	}
 
+	public void updateCodigoFacturaActual() {
+		codigoFacturaActual++;
+	}
+
 	public String getNextFacturaCodigo() {
 		int cod = codigoFacturaActual;
-		codigoFacturaActual++;
 		return nif + cod;
 	}
 

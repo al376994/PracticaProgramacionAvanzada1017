@@ -32,7 +32,7 @@ public class BaseDeDatos {
 	private Empresa voidEmpresa = new Empresa();
 	private Particular voidParticular = new Particular();
 
-	public static Cliente getCliente(String nif) {
+	public Cliente getCliente(String nif) {
 		if (clientes.containsKey(nif)) return clientes.get(nif);
 		else return null;
 	}
@@ -61,7 +61,7 @@ public class BaseDeDatos {
 		return addClient(cliente);
 	}
 
-	private boolean addClient(Cliente cliente) {
+	public boolean addClient(Cliente cliente) {
 		String key = cliente.getNif();
 		if (!clientes.containsKey(key)) {
 			clientes.put(key, cliente);
@@ -70,23 +70,27 @@ public class BaseDeDatos {
 		return false;
 	}
 
-	public boolean borrarCliente() {
+	public boolean askBorrarCliente() {
 		String nif;
 		nif = IO.in.askNIF();
+		return borrarCliente(nif);
+	}
+
+	public boolean borrarCliente(String nif) {
 		if (clientes.containsKey(nif)) {
 			clientes.remove(nif);
 			return true;
 		}
 		return false;
-	}
+	}		//TODO test
 
 	public void cambiarTarifa() {
-		Cliente cliente = IO.in.askForCliente();
+		Cliente cliente = IO.in.askForCliente(this);
 		cliente.cambiarTarifa(IO.in.askForTarifa());
 	}
 
 	public void printCliente() {
-		Cliente cliente = IO.in.askForCliente();
+		Cliente cliente = IO.in.askForCliente(this);
 		IO.out.toTerminal(cliente);
 		if (EN_TERMINAL) IO.waitIntro();
 	}
@@ -99,7 +103,7 @@ public class BaseDeDatos {
 	}
 
 	public boolean nuevaLlamada(boolean random) {
-		Cliente cliente = IO.in.askForCliente();
+		Cliente cliente = IO.in.askForCliente(this);
 		if (random) {
 			cliente.darDeAltaLlamadaRandom();
 			return true;
@@ -111,7 +115,7 @@ public class BaseDeDatos {
 
 	public void listarLlamadas() {
 		IO.out.toTerminal("\n");
-		Cliente cliente = IO.in.askForCliente();
+		Cliente cliente = IO.in.askForCliente(this);
 		for (Llamada llamada : cliente.getLlamadas()) {
 			IO.out.toTerminal(llamada + SEPARATOR);
 		}
@@ -120,16 +124,21 @@ public class BaseDeDatos {
 	}
 
 	public boolean nuevaFactura(boolean random) {
-		Cliente cliente = IO.in.askForCliente();
+		Cliente cliente = IO.in.askForCliente(this);
 		Factura factura;
 		if (random) {
 			factura = Factura.darDeAltaRandom(this, cliente);
 		} else {
 			factura = Factura.darDeAlta(this, cliente);
 		}
-		facturas.put(factura.getCodigo(), factura);
 		cliente.addFactura(factura);
+		addFactura(factura);
 		return true;
+	}
+
+	public void addFactura(Factura factura) {
+		facturas.put(factura.getCodigo(), factura);
+		factura.getCliente().updateCodigoFacturaActual();
 	}
 
 	public void printFactura() {
@@ -140,7 +149,7 @@ public class BaseDeDatos {
 
 	public void listarFacturas() {
 		IO.out.toTerminal("\n");
-		Cliente cliente = IO.in.askForCliente();
+		Cliente cliente = IO.in.askForCliente(this);
 		for (Factura factura : cliente.getFacturas().values()) {
 			IO.out.toTerminal(factura + SEPARATOR);
 		}

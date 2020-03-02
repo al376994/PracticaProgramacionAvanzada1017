@@ -125,13 +125,13 @@ public class Input {
 		return new Quartet<>(telefono, date, time, duracion);
 	}
 
-	public Cliente askForCliente() {
+	public Cliente askForCliente(BaseDeDatos baseDeDatos) {
 		Cliente cliente = null;
 		while (cliente == null) {
 			String nif;
 			if (BaseDeDatos.EN_TERMINAL) nif = IO.in.fromTerminalAskString("Introduce el NIF del cliente: ");
 			else IO.out.toTerminal("No implementado");
-			cliente = BaseDeDatos.getCliente(nif);
+			cliente = baseDeDatos.getCliente(nif);
 			if (cliente == null) IO.out.toTerminal("El NIF introducido no es válido");
 		}
 		return cliente;
