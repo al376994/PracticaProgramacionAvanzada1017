@@ -59,7 +59,7 @@ public class Particular extends Cliente {
 
 	@Override
 	public String toString() {
-		return 	"Particular" + "\nNombre: " + nombre + " " + apellido + super.toString();
+		return 	"Particular" + "\nNombre: " + getNombre() + " " + apellido + super.toString();
 	}
 
 }

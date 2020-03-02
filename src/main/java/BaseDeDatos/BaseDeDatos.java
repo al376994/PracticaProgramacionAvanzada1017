@@ -54,7 +54,7 @@ public class BaseDeDatos {
 
 	public boolean borrarCliente() {
 		String nif;
-		nif = IO.in.fromTerminalAskString("\nEscribe el nif del cliente que quieres borrar: ");
+		nif = IO.in.askNIF();
 		if (clientes.containsKey(nif)) {
 			clientes.remove(nif);
 			return true;
@@ -83,10 +83,10 @@ public class BaseDeDatos {
 	public boolean nuevaLlamada(boolean random) {
 		Cliente cliente = IO.in.askForCliente();
 		if (random) {
-			cliente.darDeAltaLlamada();
+			cliente.darDeAltaLlamadaRandom();
 			return true;
 		} else {
-			cliente.darDeAltaLlamada(IO.in.askNewLlamadaData());
+			cliente.darDeAltaLlamada(Llamada.darDeAlta());
 			return true;
 		}
 	}
@@ -94,7 +94,7 @@ public class BaseDeDatos {
 	public void listarLlamadas() {
 		IO.out.toTerminal("\n");
 		Cliente cliente = IO.in.askForCliente();
-		for (Llamada llamada : cliente.llamadas) {
+		for (Llamada llamada : cliente.getLlamadas()) {
 			IO.out.toTerminal(llamada + SEPARATOR);
 		}
 		if (EN_TERMINAL) IO.out.toTerminal(SEPARATOR);

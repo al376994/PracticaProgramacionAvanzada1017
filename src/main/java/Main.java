@@ -1,4 +1,3 @@
-import Auxiliares.IO;
 import BaseDeDatos.BaseDeDatos;
 import Menu.MenuTerminal;
 

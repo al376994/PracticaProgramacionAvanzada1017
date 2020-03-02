@@ -5,24 +5,22 @@ import Auxiliares.Llamada;
 import Auxiliares.Tarifa;
 import Auxiliares.TieneFecha;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Hashtable;
 import java.util.List;
 
 public abstract class Cliente implements TieneFecha {
 
-	protected BaseDeDatos baseDeDatos;
-	protected String nombre;
-	protected String nif;
-	protected Direccion direccion;
-	protected String correoElectronico;
-	protected LocalDate fechaDeAlta;
-	protected Tarifa tarifa;
-	protected Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
-	protected List<Llamada> llamadas;
-	protected int codigoFacturaActual = 1;
+	private BaseDeDatos baseDeDatos;
+	private String nombre;
+	private String nif;
+	private Direccion direccion;
+	private String correoElectronico;
+	private LocalDate fechaDeAlta;
+	private Tarifa tarifa;
+	private Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
+	private List<Llamada> llamadas;
+	private int codigoFacturaActual = 1;
 
 
 	public Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
@@ -42,8 +40,16 @@ public abstract class Cliente implements TieneFecha {
 	public abstract <T extends Cliente> T darDeAlta(BaseDeDatos baseDeDatos);
 	public abstract <T extends Cliente> T darDeAltaRandom(BaseDeDatos baseDeDatos);
 
+	public String getNombre() {
+		return nombre;
+	}
+
 	public String getNif() {
 		return nif;
+	}
+
+	public Tarifa getTarifa() {
+		return tarifa;
 	}
 
 	public void cambiarTarifa(Tarifa tarifa) {
@@ -54,7 +60,7 @@ public abstract class Cliente implements TieneFecha {
 		return llamadas;
 	}
 
-	public void darDeAltaLlamada() {
+	public void darDeAltaLlamadaRandom() {
 		llamadas.add(baseDeDatos.generateRandomLlamada());
 	}
 
@@ -81,4 +87,7 @@ public abstract class Cliente implements TieneFecha {
 				"\nFecha de alta: " + fechaDeAlta.format(BaseDeDatos.DMY);
 	}
 
+	public List<Llamada> getLlamadas() {
+		return llamadas;
+	};
 }

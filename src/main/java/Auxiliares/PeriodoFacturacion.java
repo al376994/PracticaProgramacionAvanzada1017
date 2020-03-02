@@ -14,8 +14,8 @@ public class PeriodoFacturacion {
 	}
 
 	static public PeriodoFacturacion askDates() {
-		LocalDate start = BaseDeDatos.askDate("del principio del periodo de facturacion");
-		LocalDate end = BaseDeDatos.askDate("del final del periodo de facturacion");
+		LocalDate start = IO.in.askDate("del principio del periodo de facturacion");
+		LocalDate end = IO.in.askDate("del final del periodo de facturacion");
 		return new PeriodoFacturacion(start, end);
 	}
 

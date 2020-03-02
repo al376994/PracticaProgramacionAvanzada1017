@@ -54,7 +54,7 @@ public class Empresa extends Cliente {
 
 	@Override
 	public String toString() {
-		return 	"Empresa" + "\nNombre: " + nombre + super.toString();
+		return 	"Empresa" + "\nNombre: " + getNombre() + super.toString();
 	}
 
 }

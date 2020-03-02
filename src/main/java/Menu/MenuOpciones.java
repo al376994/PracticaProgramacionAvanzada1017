@@ -65,33 +65,33 @@ public class MenuOpciones {
 		switch (set) {
 			case 1:																	//Menu principal
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesPrincipales));
-				option = IO.in.fromTerminalAskInt(inputText);
+				option = IO.in.getOption(inputText);
 				chooseOptionPrincipales(option);
 				break;
 			case 2:																	//Seleccinar tipo de cliente
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevoCliente));
-				option = IO.in.fromTerminalAskInt(inputText);
+				option = IO.in.getOption(inputText);
 				boolean satisfactory = chooseOptionNuevoCliente(option);
 				printIsSatisfactory(satisfactory);
 				return satisfactory;
 			case 3:																	//Crear llamada
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaLlamada));
-				option = IO.in.fromTerminalAskInt(inputText);
+				option = IO.in.getOption(inputText);
 				chooseOptionNuevaLlamada(option);
 				printIsSatisfactory(true);
 				return true;
 			case 4:																	//Crear factura
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaFactura));
-				option = IO.in.fromTerminalAskInt(inputText);
+				option = IO.in.getOption(inputText);
 				chooseOptionNuevaFactura(option);
 				printIsSatisfactory(true);
 			case -1:																//Opciones de salida
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesSalida));
-				option = IO.in.fromTerminalAskInt(inputText);
+				option = IO.in.getOption(inputText);
 				chooseOptionSalida(option);
 			default:
 				IO.out.toTerminal("Error choosing a Menu Set(" + set + "), returning to Main Menu");
-				option = IO.in.fromTerminalAskInt(inputText);
+				option = IO.in.getOption(inputText);
 				chooseOptionPrincipales(option);
 				break;
 		}
@@ -180,7 +180,7 @@ public class MenuOpciones {
 			case 2:
 				return baseDeDatos.nuevaFactura(true);
 			case 3:
-				return true
+				return true;
 			default:
 				return wrongOptionWriten(OPCIONES_NUEVA_FACTURA);
 		}

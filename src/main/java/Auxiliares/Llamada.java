@@ -1,6 +1,7 @@
 package Auxiliares;
 
 import BaseDeDatos.BaseDeDatos;
+import org.javatuples.Quartet;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -18,6 +19,15 @@ public class Llamada implements TieneFecha {
 		this.fecha = fecha;
 		this.hora = hora;
 		this.duracion = duracion;
+	}
+
+	static public Llamada darDeAlta() {
+		Quartet data = IO.in.askNewLlamadaData();
+		String telefono = (String) data.getValue(0);
+		LocalDate date = (LocalDate) data.getValue(1);
+		LocalTime time = (LocalTime) data.getValue(2);
+		Duration duration = (Duration) data.getValue(3);
+		return new Llamada(telefono, date, time, duration);
 	}
 
 	@Override

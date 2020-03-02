@@ -3,6 +3,7 @@ package BaseDeDatos;
 import Auxiliares.IO;
 import Auxiliares.PeriodoFacturacion;
 import Auxiliares.Tarifa;
+import org.javatuples.Quartet;
 
 import java.time.LocalDate;
 
@@ -37,10 +38,11 @@ public class Factura {
 	}
 
 	static public Factura darDeAlta(BaseDeDatos baseDeDatos, Cliente cliente) {
-		String codigo = cliente.getNextFacturaCodigo();
-		Tarifa tarifa = new Tarifa(IO.in.fromTerminalAskDouble("Precio de la tarifa: "));
-		LocalDate date = BaseDeDatos.askDate("de la factura");
-		PeriodoFacturacion pf = PeriodoFacturacion.askDates();
+		Quartet data = IO.in.askForFactura(cliente);
+		String codigo = (String) data.getValue(0);
+		Tarifa tarifa = (Tarifa) data.getValue(1);
+		LocalDate date = (LocalDate) data.getValue(2);
+		PeriodoFacturacion pf = (PeriodoFacturacion) data.getValue(3);
 		return new Factura(baseDeDatos, codigo, tarifa, date, pf, cliente);
 	}
 }
