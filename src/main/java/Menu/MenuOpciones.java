@@ -28,7 +28,8 @@ public class MenuOpciones {
 			"1. \tDar de alta un Particular",
 			"2. \tDar de alta un Particular aleatorio",
 			"3. \tDar de alta una Empresa",
-			"4. \tDar de alta una Empresa aleatoria"
+			"4. \tDar de alta una Empresa aleatoria",
+			"5. \tCancelar"
 	};
 
 	final String[] listaOpcionesSalida = {
@@ -62,28 +63,29 @@ public class MenuOpciones {
 	public boolean chooseOptionSet(int set) {
 		int option;
 		switch (set) {
-			case 1:
+			case 1:																	//Menu principal
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesPrincipales));
 				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionPrincipales(option);
 				break;
-			case 2:
+			case 2:																	//Seleccinar tipo de cliente
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevoCliente));
 				option = IO.in.fromTerminalAskInt(inputText);
 				boolean satisfactory = chooseOptionNuevoCliente(option);
 				printIsSatisfactory(satisfactory);
 				return satisfactory;
-			case 3:
+			case 3:																	//Crear llamada
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaLlamada));
 				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionNuevaLlamada(option);
 				printIsSatisfactory(true);
-			case 4:
+				return true;
+			case 4:																	//Crear factura
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaFactura));
 				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionNuevaFactura(option);
 				printIsSatisfactory(true);
-			case -1:
+			case -1:																//Opciones de salida
 				IO.out.toTerminal("\n" + getOpciones(listaOpcionesSalida));
 				option = IO.in.fromTerminalAskInt(inputText);
 				chooseOptionSalida(option);
@@ -98,40 +100,39 @@ public class MenuOpciones {
 
 	private void chooseOptionPrincipales(int option) {
 		switch (option) {
-			case 1:
+			case 1:											// CREAR UN CLIENTE NUEVO
 				chooseOptionSet(OPCIONES_NUEVO_CLIENTE);
 				break;
-			case 2:
+			case 2:											// BORRAR UN CLIENTE EXISTENTE
 				borrarCliente();
 				break;
-			case 3:
+			case 3:											// CAMBIAR LA TARIFA DE UN CLIENTE
 				baseDeDatos.cambiarTarifa();
 				break;
-			case 4:
+			case 4:											// MOSTRAR LOS DATOS DE UN CLIENTE
 				baseDeDatos.printCliente();
 				break;
-			case 5:
+			case 5:											// MOSTRAR LOS DATOS DE TODOS LOS CLIENTES
 				baseDeDatos.listarClientes();
 				IO.waitIntro();
 				break;
-			case 6:
+			case 6:											// CREAR UNA LLAMADA PARA UN CLIENTE
 				chooseOptionSet(OPCIONES_NUEVA_LLAMADA);
 				break;
-			case 7:
+			case 7:											// MOSTRAR LLAMADAS DE UN CLIENTE
 				baseDeDatos.listarLlamadas();
 				break;
-			case 8:
+			case 8:											//CREAR UNA FACTURA PARA UN CLIENTE TODO
 				IO.out.toTerminal(option);
 				break;
-			case 9:
+			case 9:											//TODO
 				IO.out.toTerminal(option);
 				break;
-			case 10:
+			case 10:										//TODO
 				IO.out.toTerminal(option);
 				break;
-			case 11:
+			case 11:										// CERRAR EL PROGRAMA
 				chooseOptionSet(OPCIONES_SALIDA);
-				baseDeDatos.exitWithoutSave();
 			default:
 				wrongOptionWriten(OPCIONES_PRINCIPALES);
 				break;
@@ -148,6 +149,8 @@ public class MenuOpciones {
 				return baseDeDatos.nuevaEmpresa(false);
 			case 4:
 				return baseDeDatos.nuevaEmpresa(true);
+			case 5:
+				return true;
 			default:
 				wrongOptionWriten(OPCIONES_NUEVO_CLIENTE);
 				break;
@@ -162,8 +165,7 @@ public class MenuOpciones {
 			case 2:
 				return baseDeDatos.nuevaLlamada(true);
 			case 3:
-				chooseOptionSet(OPCIONES_PRINCIPALES);
-				break;
+				return true;
 			default:
 				wrongOptionWriten(OPCIONES_NUEVA_LLAMADA);
 				break;
@@ -178,7 +180,7 @@ public class MenuOpciones {
 			case 2:
 				return baseDeDatos.nuevaFactura(true);
 			case 3:
-				return chooseOptionSet(OPCIONES_PRINCIPALES);
+				return true
 			default:
 				return wrongOptionWriten(OPCIONES_NUEVA_FACTURA);
 		}

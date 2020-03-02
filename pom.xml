@@ -6,7 +6,7 @@
 
     <groupId>es.uji@al376994</groupId>
     <artifactId>PracticaProgramacionAvanzada1017</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
     <build>
         <plugins>
             <plugin>

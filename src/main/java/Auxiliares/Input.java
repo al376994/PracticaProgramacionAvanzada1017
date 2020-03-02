@@ -13,6 +13,10 @@ public class Input {
 
 	private static Scanner s = new Scanner(System.in);
 
+	public int askInt(String text) {
+		if (BaseDeDatos.EN_TERMINAL) fromTerminalAskInt(text);
+	}
+
 	public String fromTerminalAskString(String text) {
 		IO.out.toTerminal(text, " ");
 		return s.nextLine();
