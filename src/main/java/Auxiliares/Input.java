@@ -4,7 +4,6 @@ import BaseDeDatos.BaseDeDatos;
 import BaseDeDatos.Cliente;
 import BaseDeDatos.Factura;
 import org.javatuples.Quartet;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -52,7 +51,7 @@ public class Input {
 	public int getOption(String text) {
 		int option;
 		if (BaseDeDatos.EN_TERMINAL) option = fromTerminalAskInt(text);
-		else throw new NotImplementedException();
+		else IO.out.toTerminal("No implementado");
 		return option;
 	}
 
@@ -153,7 +152,7 @@ public class Input {
 			String codigo;
 			if (BaseDeDatos.EN_TERMINAL) codigo = IO.in.fromTerminalAskString("Introduce el codigo de la factura: ");
 			else IO.out.toTerminal("No implementado");
-			factura = BaseDeDatos.facturas.get(codigo);
+			factura = BaseDeDatos.getFacturas().get(codigo);
 			if (factura == null) IO.out.toTerminal("El codigo introducido no es válido");
 		}
 		return factura;

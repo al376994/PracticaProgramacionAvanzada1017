@@ -4,8 +4,11 @@ import Auxiliares.Direccion;
 import Auxiliares.Llamada;
 import Auxiliares.Tarifa;
 import Auxiliares.TieneFecha;
+import es.uji.www.GeneradorDatosINE;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -56,12 +59,15 @@ public abstract class Cliente implements TieneFecha {
 		this.tarifa = tarifa;
 	}
 
-	public List<Llamada> listaLlamadas() {
-		return llamadas;
+	private Llamada generateRandomLlamada() {
+		GeneradorDatosINE g = new GeneradorDatosINE();
+		String tel =  "9" + g.getNIF().substring(0, 7);
+		Duration dur = BaseDeDatos.randomDuration(10, 60);
+		return new Llamada(tel, LocalDate.now(), LocalTime.now(), dur);
 	}
 
 	public void darDeAltaLlamadaRandom() {
-		llamadas.add(baseDeDatos.generateRandomLlamada());
+		llamadas.add(generateRandomLlamada());
 	}
 
 	public void darDeAltaLlamada(Llamada llamada) {

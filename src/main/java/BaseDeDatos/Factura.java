@@ -1,14 +1,11 @@
 package BaseDeDatos;
 
-import Auxiliares.IO;
-import Auxiliares.Llamada;
-import Auxiliares.PeriodoFacturacion;
-import Auxiliares.Tarifa;
+import Auxiliares.*;
 import org.javatuples.Quartet;
 
 import java.time.LocalDate;
 
-public class Factura {
+public class Factura implements TieneFecha {
 
 	private static int codigoFacturaActual = 1;
 
@@ -68,4 +65,8 @@ public class Factura {
 				"\nImporte: " + importe;
 	}
 
+	@Override
+	public LocalDate getFecha() {
+		return fechaEmision;
+	}
 }

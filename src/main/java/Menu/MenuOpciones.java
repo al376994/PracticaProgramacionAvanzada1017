@@ -125,10 +125,10 @@ public class MenuOpciones {
 			case 8:											//CREAR UNA FACTURA PARA UN CLIENTE
 				chooseOptionSet(OPCIONES_NUEVA_FACTURA);
 				break;
-			case 9:											//RECUPERAR FACTURA A PARTIR DE CODIGO TODO
+			case 9:											//RECUPERAR FACTURA A PARTIR DE CODIGO
 				baseDeDatos.printFactura();
 				break;
-			case 10:										//RECUPERAR FACTURAS DE UN CLIENTE TODO
+			case 10:										//RECUPERAR FACTURAS DE UN CLIENTE
 				baseDeDatos.listarFacturas();
 				break;
 			case 11:										// CERRAR EL PROGRAMA

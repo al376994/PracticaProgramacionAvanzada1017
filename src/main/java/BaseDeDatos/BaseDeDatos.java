@@ -18,8 +18,16 @@ public class BaseDeDatos {
 	public static final DateTimeFormatter HMS = DateTimeFormatter.ofPattern("hh:mm:ss");
 	public static final boolean EN_TERMINAL = true;
 
-	public static Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
-	public static Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
+	private static Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
+	private static Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
+
+	public static Hashtable<String, Cliente> getClientes() {
+		return clientes;
+	}
+
+	public static Hashtable<String, Factura> getFacturas() {
+		return facturas;
+	}
 
 	private Empresa voidEmpresa = new Empresa();
 	private Particular voidParticular = new Particular();
@@ -27,6 +35,16 @@ public class BaseDeDatos {
 	public static Cliente getCliente(String nif) {
 		if (clientes.containsKey(nif)) return clientes.get(nif);
 		else return null;
+	}
+
+	public static Duration randomDuration(int min, int max) {
+		if (min > max) {
+			int tmp = max;
+			max = min;
+			min = tmp;
+		}
+		if (min == max) return Duration.ofSeconds(min);
+		return Duration.ofSeconds( (long)(Math.random() * ((max - min) + 1)) + min );
 	}
 
 	public boolean nuevoParticular(boolean random) {
@@ -132,23 +150,6 @@ public class BaseDeDatos {
 
 	public void exitWithoutSave() {
 		System.exit(0);
-	}
-
-	Llamada generateRandomLlamada() {
-		GeneradorDatosINE g = new GeneradorDatosINE();
-		String tel =  "9" + g.getNIF().substring(0, 7);
-		Duration dur = randomDuration(10, 60);
-		return new Llamada(tel, LocalDate.now(), LocalTime.now(), dur);
-	}
-
-	private Duration randomDuration(int min, int max) {
-		if (min > max) {
-			int tmp = max;
-			max = min;
-			min = tmp;
-		}
-		if (min == max) return Duration.ofSeconds(min);
-		return Duration.ofSeconds( (long)(Math.random() * ((max - min) + 1)) + min );
 	}
 
 }

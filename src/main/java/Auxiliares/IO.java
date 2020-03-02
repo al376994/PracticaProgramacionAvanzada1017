@@ -1,9 +1,9 @@
 package Auxiliares;
 
 public class IO {
-	static public Input in = new Input();
-	static public Output out = new Output();
-	static public void waitIntro() {
+	public static final Input in = new Input();
+	public static final Output out = new Output();
+	public static void waitIntro() {
 		in.waitIntro();
 	}
 }
