@@ -1,6 +1,7 @@
 package BaseDeDatos;
 
 import Auxiliares.IO;
+import Auxiliares.Llamada;
 import Auxiliares.PeriodoFacturacion;
 import Auxiliares.Tarifa;
 import org.javatuples.Quartet;
@@ -11,14 +12,13 @@ public class Factura {
 
 	private static int codigoFacturaActual = 1;
 
-	BaseDeDatos baseDeDatos;
-	String codigo;
-	Tarifa tarifa;
-	LocalDate fechaEmision;
-	PeriodoFacturacion periodoFacturacion;
-	Cliente cliente;
-
-	public Factura() {}
+	private BaseDeDatos baseDeDatos;
+	private String codigo;
+	private Tarifa tarifa;
+	private LocalDate fechaEmision;
+	private PeriodoFacturacion periodoFacturacion;
+	private Cliente cliente;
+	private double importe;
 
 	private Factura(BaseDeDatos baseDeDatos, String codigo, Tarifa tarifa, LocalDate fechaEmision, PeriodoFacturacion periodoFacturacion, Cliente cliente) {
 		this.baseDeDatos = baseDeDatos;
@@ -27,6 +27,21 @@ public class Factura {
 		this.fechaEmision = fechaEmision;
 		this.periodoFacturacion = periodoFacturacion;
 		this.cliente = cliente;
+		importe = calculaImporte(tarifa, periodoFacturacion, cliente);
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	private double calculaImporte(Tarifa tarifa, PeriodoFacturacion periodoFacturacion, Cliente cliente) {
+		double importe = 0;
+		for (Llamada llamada : cliente.getLlamadas()) {
+			if (periodoFacturacion.inPeriodoFacturacion(llamada.getFecha())) {
+				importe += llamada.getDuracion().getSeconds() * tarifa.getPrecio();
+			}
+		}
+		return importe;
 	}
 
 	static public Factura darDeAltaRandom(BaseDeDatos baseDeDatos, Cliente cliente) {
@@ -45,4 +60,12 @@ public class Factura {
 		PeriodoFacturacion pf = (PeriodoFacturacion) data.getValue(3);
 		return new Factura(baseDeDatos, codigo, tarifa, date, pf, cliente);
 	}
+
+	@Override
+	public String toString(){
+		return "Factura: " + codigo + " emitida el " + fechaEmision.format(BaseDeDatos.DMY) +
+				"\nPeriodo de facturacion" + periodoFacturacion.getStart().format(BaseDeDatos.HMS) + " - " + periodoFacturacion.getEnd() +
+				"\nImporte: " + importe;
+	}
+
 }

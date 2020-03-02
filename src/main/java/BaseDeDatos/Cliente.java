@@ -68,6 +68,10 @@ public abstract class Cliente implements TieneFecha {
 		llamadas.add(llamada);
 	}
 
+	public void addFactura(Factura factura) {
+		facturas.put(factura.getCodigo(), factura);
+	}
+
 	public String getNextFacturaCodigo() {
 		int cod = codigoFacturaActual;
 		codigoFacturaActual++;
@@ -89,5 +93,9 @@ public abstract class Cliente implements TieneFecha {
 
 	public List<Llamada> getLlamadas() {
 		return llamadas;
+	};
+
+	public Hashtable<String, Factura> getFacturas() {
+		return facturas;
 	};
 }

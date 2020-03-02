@@ -103,12 +103,31 @@ public class BaseDeDatos {
 
 	public boolean nuevaFactura(boolean random) {
 		Cliente cliente = IO.in.askForCliente();
+		Factura factura;
 		if (random) {
-			Factura.darDeAltaRandom(this, cliente);
+			factura = Factura.darDeAltaRandom(this, cliente);
 		} else {
-			Factura.darDeAlta(this, cliente);
+			factura = Factura.darDeAlta(this, cliente);
 		}
+		facturas.put(factura.getCodigo(), factura);
+		cliente.addFactura(factura);
 		return true;
+	}
+
+	public void printFactura() {
+		Factura factura = IO.in.askForFactura();
+		IO.out.toTerminal(factura);
+		if (EN_TERMINAL) IO.waitIntro();
+	}
+
+	public void listarFacturas() {
+		IO.out.toTerminal("\n");
+		Cliente cliente = IO.in.askForCliente();
+		for (Factura factura : cliente.getFacturas().values()) {
+			IO.out.toTerminal(factura + SEPARATOR);
+		}
+		if (EN_TERMINAL) IO.out.toTerminal(SEPARATOR);
+		if (EN_TERMINAL) IO.waitIntro();
 	}
 
 	public void exitWithoutSave() {

@@ -122,14 +122,14 @@ public class MenuOpciones {
 			case 7:											// MOSTRAR LLAMADAS DE UN CLIENTE
 				baseDeDatos.listarLlamadas();
 				break;
-			case 8:											//CREAR UNA FACTURA PARA UN CLIENTE TODO
-				IO.out.toTerminal(option);
+			case 8:											//CREAR UNA FACTURA PARA UN CLIENTE
+				chooseOptionSet(OPCIONES_NUEVA_FACTURA);
 				break;
-			case 9:											//TODO
-				IO.out.toTerminal(option);
+			case 9:											//RECUPERAR FACTURA A PARTIR DE CODIGO TODO
+				baseDeDatos.printFactura();
 				break;
-			case 10:										//TODO
-				IO.out.toTerminal(option);
+			case 10:										//RECUPERAR FACTURAS DE UN CLIENTE TODO
+				baseDeDatos.listarFacturas();
 				break;
 			case 11:										// CERRAR EL PROGRAMA
 				chooseOptionSet(OPCIONES_SALIDA);

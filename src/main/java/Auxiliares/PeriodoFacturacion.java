@@ -19,6 +19,11 @@ public class PeriodoFacturacion {
 		return new PeriodoFacturacion(start, end);
 	}
 
+	public boolean inPeriodoFacturacion(LocalDate date) {
+		if (date.isAfter(start) && date.isBefore(end)) return true;
+		else return false;
+	}
+
 	public LocalDate getStart() {
 		return start;
 	}

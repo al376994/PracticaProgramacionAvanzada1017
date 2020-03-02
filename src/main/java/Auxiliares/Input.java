@@ -2,6 +2,7 @@ package Auxiliares;
 
 import BaseDeDatos.BaseDeDatos;
 import BaseDeDatos.Cliente;
+import BaseDeDatos.Factura;
 import org.javatuples.Quartet;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -146,6 +147,18 @@ public class Input {
 		return tarifa;
 	}
 
+	public Factura askForFactura() {
+		Factura factura = null;
+		while (factura == null) {
+			String codigo;
+			if (BaseDeDatos.EN_TERMINAL) codigo = IO.in.fromTerminalAskString("Introduce el codigo de la factura: ");
+			else IO.out.toTerminal("No implementado");
+			factura = BaseDeDatos.facturas.get(codigo);
+			if (factura == null) IO.out.toTerminal("El codigo introducido no es válido");
+		}
+		return factura;
+	}
+
 	public Quartet<String, Tarifa, LocalDate, PeriodoFacturacion> askForFactura(Cliente cliente) {
 		String codigo;
 		Tarifa tarifa;
@@ -157,6 +170,6 @@ public class Input {
 			date = IO.in.askDate("de la factura");
 			pf = PeriodoFacturacion.askDates();
 		}
-		return new Quartet<String, Tarifa, LocalDate, PeriodoFacturacion>(codigo, tarifa, date, pf);
+		return new Quartet<>(codigo, tarifa, date, pf);
 	}
 }

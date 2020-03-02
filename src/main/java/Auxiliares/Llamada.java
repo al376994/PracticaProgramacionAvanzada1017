@@ -30,6 +30,10 @@ public class Llamada implements TieneFecha {
 		return new Llamada(telefono, date, time, duration);
 	}
 
+	public Duration getDuracion() {
+		return duracion;
+	}
+
 	@Override
 	public LocalDate getFecha() {
 		return fecha;
