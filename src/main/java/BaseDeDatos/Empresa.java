@@ -16,9 +16,7 @@ public class Empresa extends Cliente {
 	private Empresa(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
 		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 	}
-
-	public Empresa() {}
-
+	
 	//@Override
 	static Empresa darDeAltaRandom(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();

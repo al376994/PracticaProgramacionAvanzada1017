@@ -37,8 +37,6 @@ public abstract class Cliente implements TieneFecha {
 		this.llamadas = llamadas;
 	}
 
-	Cliente() {}
-
 	//public abstract <T extends Cliente> T darDeAlta(BaseDeDatos baseDeDatos);
 	//public abstract <T extends Cliente> T darDeAltaRandom(BaseDeDatos baseDeDatos);
 

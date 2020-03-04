@@ -20,8 +20,6 @@ public class Particular extends Cliente {
 		this.apellido = apellido;
 	}
 
-	public Particular() {}
-
 	//@Override
 	static Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
