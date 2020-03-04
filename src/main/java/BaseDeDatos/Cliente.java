@@ -37,9 +37,6 @@ public abstract class Cliente implements TieneFecha {
 		this.llamadas = llamadas;
 	}
 
-	//public abstract <T extends Cliente> T darDeAlta(BaseDeDatos baseDeDatos);
-	//public abstract <T extends Cliente> T darDeAltaRandom(BaseDeDatos baseDeDatos);
-
 	static Cliente darDeAlta(BaseDeDatos baseDeDatos, boolean esParticular, boolean esRandom) {
 		if (esParticular) {
 			Particular particular;
@@ -107,7 +104,7 @@ public abstract class Cliente implements TieneFecha {
 	public String toString() {
 		return "\t\tNIF: " + nif + "\nProvincia: " + direccion.getProvincia() +
 				"\t\tPoblación: " + direccion.getPoblacion() + "\t\tCP: " + direccion.getCp() +
-				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa" + tarifa.getPrecio() +
+				"\nCorreo electonico: " + correoElectronico + "\t\tPrecio Tarifa: " + tarifa.getPrecio() +
 				"\nFecha de alta: " + fechaDeAlta.format(BaseDeDatos.DMY);
 	}
 
