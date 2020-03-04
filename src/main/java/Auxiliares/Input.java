@@ -3,7 +3,6 @@ package Auxiliares;
 import BaseDeDatos.BaseDeDatos;
 import BaseDeDatos.Cliente;
 import BaseDeDatos.Factura;
-import org.javatuples.Quartet;
 
 import java.time.Duration;
 import java.time.LocalDate;
