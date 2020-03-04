@@ -1,7 +1,6 @@
 package BaseDeDatos;
 
 import Auxiliares.*;
-import org.javatuples.Quartet;
 
 import java.time.LocalDate;
 
@@ -56,12 +55,7 @@ public class Factura implements TieneFecha {
 	}
 
 	static public Factura darDeAlta(BaseDeDatos baseDeDatos, Cliente cliente) {
-		Quartet data = IO.in.askForFactura(cliente);
-		String codigo = (String) data.getValue(0);
-		Tarifa tarifa = (Tarifa) data.getValue(1);
-		LocalDate date = (LocalDate) data.getValue(2);
-		PeriodoFacturacion pf = (PeriodoFacturacion) data.getValue(3);
-		return new Factura(baseDeDatos, codigo, tarifa, date, pf, cliente);
+		return IO.in.askNewFactura(baseDeDatos, cliente);
 	}
 
 	@Override

@@ -22,12 +22,7 @@ public class Llamada implements TieneFecha {
 	}
 
 	static public Llamada darDeAlta() {
-		Quartet data = IO.in.askNewLlamadaData();
-		String telefono = (String) data.getValue(0);
-		LocalDate date = (LocalDate) data.getValue(1);
-		LocalTime time = (LocalTime) data.getValue(2);
-		Duration duration = (Duration) data.getValue(3);
-		return new Llamada(telefono, date, time, duration);
+		return IO.in.askNewLlamada();
 	}
 
 	public Duration getDuracion() {

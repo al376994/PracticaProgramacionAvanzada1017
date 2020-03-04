@@ -110,7 +110,7 @@ public class Input {
 		return nif;
 	}
 
-	public Quartet<String, LocalDate, LocalTime, Duration> askNewLlamadaData() {
+	public Llamada askNewLlamada() {
 		String telefono;
 		LocalDate date;
 		LocalTime time;
@@ -122,7 +122,7 @@ public class Input {
 			duracion = Duration.ofSeconds(IO.in.fromTerminalAskInt("Duracion de la llamada: "));
 		}
 		else IO.out.toTerminal("No implementado");
-		return new Quartet<>(telefono, date, time, duracion);
+		return new Llamada(telefono, date, time, duracion);
 	}
 
 	public Cliente askForCliente(BaseDeDatos baseDeDatos) {
@@ -158,7 +158,7 @@ public class Input {
 		return factura;
 	}
 
-	public Quartet<String, Tarifa, LocalDate, PeriodoFacturacion> askForFactura(Cliente cliente) {
+	public Factura askNewFactura(BaseDeDatos baseDeDatos, Cliente cliente) {
 		String codigo;
 		Tarifa tarifa;
 		LocalDate date;
@@ -169,6 +169,6 @@ public class Input {
 			date = IO.in.askDate("de la factura");
 			pf = PeriodoFacturacion.askDates();
 		}
-		return new Quartet<>(codigo, tarifa, date, pf);
+		return new Factura(baseDeDatos, codigo, tarifa, date, pf, cliente);
 	}
 }
