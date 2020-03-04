@@ -74,33 +74,33 @@ public class MenuOpciones {
 		int option;
 		switch (set) {
 			case 1:																	//Menu principal
-				IO.out.toTerminal("\n" + getOpciones(listaOpcionesPrincipales));
+				IO.out.print("\n" + getOpciones(listaOpcionesPrincipales));
 				option = IO.in.getOption(inputText);
 				chooseOptionPrincipales(option);
 				break;
 			case 2:																	//Seleccinar tipo de cliente
-				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevoCliente));
+				IO.out.print("\n" + getOpciones(listaOpcionesNuevoCliente));
 				option = IO.in.getOption(inputText);
 				boolean satisfactory = chooseOptionNuevoCliente(option);
 				printIsSatisfactory(satisfactory);
 				return satisfactory;
 			case 3:																	//Crear llamada
-				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaLlamada));
+				IO.out.print("\n" + getOpciones(listaOpcionesNuevaLlamada));
 				option = IO.in.getOption(inputText);
 				chooseOptionNuevaLlamada(option);
 				printIsSatisfactory(true);
 				return true;
 			case 4:																	//Crear factura
-				IO.out.toTerminal("\n" + getOpciones(listaOpcionesNuevaFactura));
+				IO.out.print("\n" + getOpciones(listaOpcionesNuevaFactura));
 				option = IO.in.getOption(inputText);
 				chooseOptionNuevaFactura(option);
 				printIsSatisfactory(true);
 			case -1:																//Opciones de salida
-				IO.out.toTerminal("\n" + getOpciones(listaOpcionesSalida));
+				IO.out.print("\n" + getOpciones(listaOpcionesSalida));
 				option = IO.in.getOption(inputText);
 				chooseOptionSalida(option);
 			default:
-				IO.out.toTerminal("Error choosing a Menu Set(" + set + "), returning to Main Menu");
+				IO.out.print("Error choosing a Menu Set(" + set + "), returning to Main Menu");
 				option = IO.in.getOption(inputText);
 				chooseOptionPrincipales(option);
 				break;
@@ -234,7 +234,7 @@ public class MenuOpciones {
 				baseDeDatos.exitWithoutSave();
 				break;
 			case 2:
-				IO.out.toTerminal("Opcion no implementada.");
+				IO.out.print("Opcion no implementada.");
 				break;
 			case 3:
 				break;
@@ -245,13 +245,13 @@ public class MenuOpciones {
 	}
 
 	private void printIsSatisfactory(boolean s) {
-		if (s) IO.out.toTerminal("Operacion completada con exito");
-		else IO.out.toTerminal("La operacion no se ha podido realizar");
+		if (s) IO.out.print("Operacion completada con exito");
+		else IO.out.print("La operacion no se ha podido realizar");
 		IO.waitIntro();
 	}
 
 	private boolean wrongOptionWriten(int set) {
-		IO.out.toTerminal(wrongOption);
+		IO.out.print(wrongOption);
 		IO.waitIntro();
 		return chooseOptionSet(set);
 	}

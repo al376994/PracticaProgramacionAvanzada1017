@@ -15,19 +15,19 @@ public class Input {
 	private static Scanner s = new Scanner(System.in);
 
 	public String fromTerminalAskString(String text) {
-		IO.out.toTerminal(text, " ");
+		IO.out.print(text, " ");
 		return s.nextLine();
 	}
 
 	public int fromTerminalAskInt(String text) {
 		while (true) {
-			IO.out.toTerminal(text, " ");
+			IO.out.print(text, " ");
 			try {
 				int input = s.nextInt();
 				s.nextLine();
 				return input;
 			} catch (InputMismatchException e) {
-				IO.out.toTerminal("Error, no se ha introducido un número.");
+				IO.out.print("Error, no se ha introducido un número.");
 				s.nextLine();
 			}
 		}
@@ -35,13 +35,13 @@ public class Input {
 
 	public double fromTerminalAskDouble(String text) {
 		while (true) {
-			IO.out.toTerminal(text, " ");
+			IO.out.print(text, " ");
 			try {
 				double input = s.nextDouble();
 				s.nextLine();
 				return input;
 			} catch (InputMismatchException e) {
-				IO.out.toTerminal("Error, no se ha introducido un número.");
+				IO.out.print("Error, no se ha introducido un número.");
 				s.nextLine();
 			}
 		}
@@ -50,7 +50,7 @@ public class Input {
 	public int getOption(String text) {
 		int option;
 		if (BaseDeDatos.EN_TERMINAL) option = fromTerminalAskInt(text);
-		else IO.out.toTerminal("No implementado");
+		else IO.out.print("No implementado");
 		return option;
 	}
 
@@ -63,7 +63,7 @@ public class Input {
 			mm = IO.in.fromTerminalAskInt("Mes " + extra + ": ");
 			dd = IO.in.fromTerminalAskInt("Día " + extra + ": ");
 		}
-		else IO.out.toTerminal("No implementado");
+		else IO.out.print("No implementado");
 		return LocalDate.of(yyyy, mm, dd);
 	}
 
@@ -76,12 +76,12 @@ public class Input {
 			mm = IO.in.fromTerminalAskInt("Minuto " + extra + ": ");
 			ss = IO.in.fromTerminalAskInt("Segundo " + extra + ": ");
 		}
-		else IO.out.toTerminal("No implementado");
+		else IO.out.print("No implementado");
 		return LocalTime.of(hh, mm, ss);
 	}
 
 	public void waitIntro() {
-		IO.out.toTerminal("Pulsa Intro para continuar.", " ");
+		IO.out.print("Pulsa Intro para continuar.", " ");
 		s.nextLine();
 	}
 
@@ -95,7 +95,7 @@ public class Input {
 			data[2] = IO.in.fromTerminalAskString("Provincia del cliente:");
 			data[3] = IO.in.fromTerminalAskString("Poblacion del cliente:");
 		}
-		else IO.out.toTerminal("No implementado");
+		else IO.out.print("No implementado");
 
 		if (esParticular) data[4] = IO.in.fromTerminalAskString("Apellido del cliente:");
 
@@ -105,7 +105,7 @@ public class Input {
 	public String askNIF() {
 		String nif;
 		if (BaseDeDatos.EN_TERMINAL) nif = fromTerminalAskString("\nEscribe el nif del cliente que quieres borrar: ");
-		else IO.out.toTerminal("No implementado");
+		else IO.out.print("No implementado");
 		return nif;
 	}
 
@@ -120,7 +120,7 @@ public class Input {
 			time = askTime("de la llamada");
 			duracion = Duration.ofSeconds(IO.in.fromTerminalAskInt("Duracion de la llamada: "));
 		}
-		else IO.out.toTerminal("No implementado");
+		else IO.out.print("No implementado");
 		return new Llamada(telefono, date, time, duracion);
 	}
 
@@ -129,9 +129,9 @@ public class Input {
 		while (cliente == null) {
 			String nif;
 			if (BaseDeDatos.EN_TERMINAL) nif = IO.in.fromTerminalAskString("Introduce el NIF del cliente: ");
-			else IO.out.toTerminal("No implementado");
+			else IO.out.print("No implementado");
 			cliente = baseDeDatos.getCliente(nif);
-			if (cliente == null) IO.out.toTerminal("El NIF introducido no es válido");
+			if (cliente == null) IO.out.print("El NIF introducido no es válido");
 		}
 		return cliente;
 	}
@@ -141,7 +141,7 @@ public class Input {
 		if (BaseDeDatos.EN_TERMINAL) {
 			tarifa = new Tarifa(IO.in.fromTerminalAskDouble("Introduce el precio de la nueva tarifa"));
 		}
-		else IO.out.toTerminal("No implementado");
+		else IO.out.print("No implementado");
 		return tarifa;
 	}
 
@@ -150,9 +150,9 @@ public class Input {
 		while (factura == null) {
 			String codigo;
 			if (BaseDeDatos.EN_TERMINAL) codigo = IO.in.fromTerminalAskString("Introduce el codigo de la factura: ");
-			else IO.out.toTerminal("No implementado");
+			else IO.out.print("No implementado");
 			factura = baseDeDatos.getFacturas().get(codigo);
-			if (factura == null) IO.out.toTerminal("El codigo introducido no es válido");
+			if (factura == null) IO.out.print("El codigo introducido no es válido");
 		}
 		return factura;
 	}
