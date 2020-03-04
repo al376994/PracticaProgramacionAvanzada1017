@@ -1,7 +1,14 @@
 package Menu;
 
 import Auxiliares.IO;
+import Auxiliares.Llamada;
 import BaseDeDatos.BaseDeDatos;
+import BaseDeDatos.Cliente;
+import BaseDeDatos.Factura;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class MenuOpciones {
 
@@ -21,7 +28,10 @@ public class MenuOpciones {
 			"8. \tEmitir una factura para un cliente, calculando el importe de la misma en función de las llamadas",
 			"9. \tRecuperar los datos de una factura a partir de su código",
 			"10.\tRecuperar todas las facturas de un cliente",
-			"11.\tSalir"
+			"11.\tListar clientes dados de alta entre 2 fechas",
+			"12.\tListar llamadas de un cliente entre 2 fechas",
+			"13.\tListar facturas de un cliente entre 2 fechas",
+			"14.\tSalir"
 	};
 
 	final String[] listaOpcionesNuevoCliente = {
@@ -104,7 +114,7 @@ public class MenuOpciones {
 				chooseOptionSet(OPCIONES_NUEVO_CLIENTE);
 				break;
 			case 2:											// BORRAR UN CLIENTE EXISTENTE
-				borrarCliente();
+				printIsSatisfactory(baseDeDatos.askBorrarCliente());
 				break;
 			case 3:											// CAMBIAR LA TARIFA DE UN CLIENTE
 				baseDeDatos.cambiarTarifa();
@@ -131,12 +141,44 @@ public class MenuOpciones {
 			case 10:										//RECUPERAR FACTURAS DE UN CLIENTE
 				baseDeDatos.listarFacturas();
 				break;
-			case 11:										// CERRAR EL PROGRAMA
+			case 11:										//LISTAR CLIENTES ENTRE FECHAS
+				IO.out.listar(listarClientesEntreFechas());
+				break;
+			case 12:										//LISTAR LLAMADAS ENTRE FECHAS
+				IO.out.listar(listarLlamadassEntreFechas());
+				break;
+			case 13:										//LISTAR FACTURAS ENTRE FECHAS
+				IO.out.listar(listarFacturasEntreFechas());
+				break;
+			case 14:										// CERRAR EL PROGRAMA
 				chooseOptionSet(OPCIONES_SALIDA);
 			default:
 				wrongOptionWriten(OPCIONES_PRINCIPALES);
 				break;
 		}
+	}
+
+	private Collection<Cliente> listarClientesEntreFechas() {
+		ArrayList<Cliente> clientes = new ArrayList<>(baseDeDatos.getClientes().values());
+		LocalDate desde = IO.in.askDate("");
+		LocalDate hasta = IO.in.askDate("");
+		return baseDeDatos.elementosEntreFechas(clientes, desde, hasta);
+	}
+
+	private Collection<Llamada> listarLlamadassEntreFechas() {
+		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		ArrayList<Llamada> llamadas = new ArrayList<>(cliente.getLlamadas());
+		LocalDate desde = IO.in.askDate("");
+		LocalDate hasta = IO.in.askDate("");
+		return baseDeDatos.elementosEntreFechas(llamadas, desde, hasta);
+	}
+
+	private Collection<Factura> listarFacturasEntreFechas() {
+		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		ArrayList<Factura> facturas = new ArrayList<>(cliente.getFacturas().values());
+		LocalDate desde = IO.in.askDate("");
+		LocalDate hasta = IO.in.askDate("");
+		return baseDeDatos.elementosEntreFechas(facturas, desde, hasta);
 	}
 
 	private boolean chooseOptionNuevoCliente(int option){
@@ -206,11 +248,6 @@ public class MenuOpciones {
 		if (s) IO.out.toTerminal("Operacion completada con exito");
 		else IO.out.toTerminal("La operacion no se ha podido realizar");
 		IO.waitIntro();
-	}
-
-	private void borrarCliente() {
-		boolean satisfactory = baseDeDatos.askBorrarCliente();
-		printIsSatisfactory(satisfactory);
 	}
 
 	private boolean wrongOptionWriten(int set) {

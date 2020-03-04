@@ -2,14 +2,20 @@ package BaseDeDatos;
 
 import Auxiliares.IO;
 import Auxiliares.Llamada;
+import Auxiliares.PeriodoFacturacion;
+import Auxiliares.TieneFecha;
+
 import java.time.Duration;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 
 public class BaseDeDatos {
 
-	private final String SEPARATOR = "\n----------------------------------------------------------------------------------------------------";
+	private final String SEPARADOR = "\n----------------------------------------------------------------------------------------------------";
 
 	public static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	public static final DateTimeFormatter HMS = DateTimeFormatter.ofPattern("hh:mm:ss");
@@ -18,11 +24,11 @@ public class BaseDeDatos {
 	private static Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
 	private static Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
 
-	public static Hashtable<String, Cliente> getClientes() {
+	public Hashtable<String, Cliente> getClientes() {
 		return clientes;
 	}
 
-	public static Hashtable<String, Factura> getFacturas() {
+	public Hashtable<String, Factura> getFacturas() {
 		return facturas;
 	}
 
@@ -80,7 +86,7 @@ public class BaseDeDatos {
 
 	public void cambiarTarifa() {
 		Cliente cliente = IO.in.askForCliente(this);
-		cliente.cambiarTarifa(IO.in.askForTarifa());
+		cliente.cambiarTarifa(IO.in.askNewTarifa());
 	}
 
 	public void printCliente() {
@@ -90,10 +96,8 @@ public class BaseDeDatos {
 	}
 
 	public void listarClientes() {
-		for (Cliente cliente : clientes.values()) {
-			IO.out.toTerminal(cliente + SEPARATOR);
-		}
-		if (EN_TERMINAL) IO.out.toTerminal(SEPARATOR);
+		if (EN_TERMINAL) IO.out.toTerminal("\n");
+		IO.out.listar(clientes.values());
 	}
 
 	public boolean nuevaLlamada(boolean random) {
@@ -110,11 +114,7 @@ public class BaseDeDatos {
 	public void listarLlamadas() {
 		IO.out.toTerminal("\n");
 		Cliente cliente = IO.in.askForCliente(this);
-		for (Llamada llamada : cliente.getLlamadas()) {
-			IO.out.toTerminal(llamada + SEPARATOR);
-		}
-		if (EN_TERMINAL) IO.out.toTerminal(SEPARATOR);
-		if (EN_TERMINAL) IO.waitIntro();
+		IO.out.listar(cliente.getLlamadas());
 	}
 
 	public boolean nuevaFactura(boolean random) {
@@ -136,7 +136,7 @@ public class BaseDeDatos {
 	}
 
 	public void printFactura() {
-		Factura factura = IO.in.askForFactura();
+		Factura factura = IO.in.askForFactura(this);
 		IO.out.toTerminal(factura);
 		if (EN_TERMINAL) IO.waitIntro();
 	}
@@ -144,11 +144,16 @@ public class BaseDeDatos {
 	public void listarFacturas() {
 		IO.out.toTerminal("\n");
 		Cliente cliente = IO.in.askForCliente(this);
-		for (Factura factura : cliente.getFacturas().values()) {
-			IO.out.toTerminal(factura + SEPARATOR);
+		IO.out.listar(cliente.getFacturas().values());
+	}
+
+	public <T extends TieneFecha> Collection<T> elementosEntreFechas(ArrayList<T> lista, LocalDate desde, LocalDate hasta) {
+		PeriodoFacturacion entreEstasFechas = new PeriodoFacturacion(desde, hasta);
+		ArrayList<T> listaEntreFechas = new ArrayList<>();
+		for (T elemento : lista) {
+			if (entreEstasFechas.inPeriodoFacturacion(elemento.getFecha())) listaEntreFechas.add(elemento);
 		}
-		if (EN_TERMINAL) IO.out.toTerminal(SEPARATOR);
-		if (EN_TERMINAL) IO.waitIntro();
+		return listaEntreFechas;
 	}
 
 	public void exitWithoutSave() {
