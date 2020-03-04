@@ -22,8 +22,8 @@ public class Particular extends Cliente {
 
 	public Particular() {}
 
-	@Override
-	public Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
+	//@Override
+	static Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreParticular = g.getNombre();
@@ -39,8 +39,8 @@ public class Particular extends Cliente {
 				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
 	}
 
-	@Override
-	public Particular darDeAlta(BaseDeDatos baseDeDatos) {
+	//@Override
+	static Particular darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 		String[] data = IO.in.askNewClienteData(true);
 

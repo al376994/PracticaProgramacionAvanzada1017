@@ -25,7 +25,7 @@ public abstract class Cliente implements TieneFecha {
 	private List<Llamada> llamadas;
 	private int codigoFacturaActual = 1;
 
-	public Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
+	Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
 		this.baseDeDatos = baseDeDatos;
 		this.nombre = nombre;
 		this.nif = nif;
@@ -37,10 +37,24 @@ public abstract class Cliente implements TieneFecha {
 		this.llamadas = llamadas;
 	}
 
-	public Cliente() {}
+	Cliente() {}
 
-	public abstract <T extends Cliente> T darDeAlta(BaseDeDatos baseDeDatos);
-	public abstract <T extends Cliente> T darDeAltaRandom(BaseDeDatos baseDeDatos);
+	//public abstract <T extends Cliente> T darDeAlta(BaseDeDatos baseDeDatos);
+	//public abstract <T extends Cliente> T darDeAltaRandom(BaseDeDatos baseDeDatos);
+
+	static Cliente darDeAlta(BaseDeDatos baseDeDatos, boolean esParticular, boolean esRandom) {
+		if (esParticular) {
+			Particular particular;
+			if (esRandom) particular = Particular.darDeAlta(baseDeDatos);
+			else particular = Particular.darDeAltaRandom(baseDeDatos);
+			return particular;
+		} else {
+			Empresa empresa;
+			if (esRandom) empresa = Empresa.darDeAlta(baseDeDatos);
+			else empresa = Empresa.darDeAltaRandom(baseDeDatos);
+			return empresa;
+		}
+	}
 
 	public String getNombre() {
 		return nombre;

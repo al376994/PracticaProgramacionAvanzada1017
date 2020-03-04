@@ -2,11 +2,8 @@ package BaseDeDatos;
 
 import Auxiliares.IO;
 import Auxiliares.Llamada;
-import es.uji.www.GeneradorDatosINE;
-
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
 
@@ -29,9 +26,6 @@ public class BaseDeDatos {
 		return facturas;
 	}
 
-	private Empresa voidEmpresa = new Empresa();
-	private Particular voidParticular = new Particular();
-
 	public Cliente getCliente(String nif) {
 		if (clientes.containsKey(nif)) return clientes.get(nif);
 		else return null;
@@ -49,15 +43,15 @@ public class BaseDeDatos {
 
 	public boolean nuevoParticular(boolean random) {
 		Cliente cliente;
-		if (random) cliente = voidParticular.darDeAltaRandom(this);
-		else cliente = voidParticular.darDeAlta(this);
+		if (random) cliente = Cliente.darDeAlta(this, true, true);
+		else cliente = Cliente.darDeAlta(this, true, false);
 		return addClient(cliente);
 	}
 
 	public boolean nuevaEmpresa(boolean random) {
 		Cliente cliente;
-		if (random) cliente = voidEmpresa.darDeAltaRandom(this);
-		else cliente = voidEmpresa.darDeAlta(this);
+		if (random) cliente = Cliente.darDeAlta(this, false, true);
+		else cliente = Cliente.darDeAlta(this, false, false);
 		return addClient(cliente);
 	}
 

@@ -19,8 +19,8 @@ public class Empresa extends Cliente {
 
 	public Empresa() {}
 
-	@Override
-	public Empresa darDeAltaRandom(BaseDeDatos baseDeDatos) {
+	//@Override
+	static Empresa darDeAltaRandom(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreEmpresa = g.getNombre();
@@ -35,8 +35,8 @@ public class Empresa extends Cliente {
 				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
 	}
 
-	@Override
-	public Empresa darDeAlta(BaseDeDatos baseDeDatos) {
+	//@Override
+	static Empresa darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 		String[] data = IO.in.askNewClienteData(false);
 
