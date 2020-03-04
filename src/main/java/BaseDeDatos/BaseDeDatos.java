@@ -52,14 +52,14 @@ public class BaseDeDatos {
 		if (random) cliente = Cliente.darDeAlta(this, true, true);
 		else cliente = Cliente.darDeAlta(this, true, false);
 		return addClient(cliente);
-	}
+	}	//TODO mover a MenuOpciones
 
 	public boolean nuevaEmpresa(boolean random) {
 		Cliente cliente;
 		if (random) cliente = Cliente.darDeAlta(this, false, true);
 		else cliente = Cliente.darDeAlta(this, false, false);
 		return addClient(cliente);
-	}
+	}		//TODO mover a MenuOpciones
 
 	public boolean addClient(Cliente cliente) {
 		String key = cliente.getNif();
@@ -74,7 +74,7 @@ public class BaseDeDatos {
 		String nif;
 		nif = IO.in.askNIF();
 		return borrarCliente(nif);
-	}
+	}					//TODO mover a MenuOpciones
 
 	public boolean borrarCliente(String nif) {
 		if (clientes.containsKey(nif)) {
@@ -91,12 +91,12 @@ public class BaseDeDatos {
 
 	public void printCliente() {
 		Cliente cliente = IO.in.askForCliente(this);
-		IO.out.toTerminal(cliente);
+		IO.out.print(cliente);
 		if (EN_TERMINAL) IO.waitIntro();
-	}
+	}						//TODO mover a menuOpciones o Output
 
 	public void listarClientes() {
-		if (EN_TERMINAL) IO.out.toTerminal("\n");
+		if (EN_TERMINAL) IO.out.print("\n");
 		IO.out.listar(clientes.values());
 	}
 
@@ -112,10 +112,10 @@ public class BaseDeDatos {
 	}
 
 	public void listarLlamadas() {
-		IO.out.toTerminal("\n");
+		IO.out.print("\n");
 		Cliente cliente = IO.in.askForCliente(this);
 		IO.out.listar(cliente.getLlamadas());
-	}
+	}						//TODO mover a MenuOpciones
 
 	public boolean nuevaFactura(boolean random) {
 		Cliente cliente = IO.in.askForCliente(this);
@@ -137,15 +137,15 @@ public class BaseDeDatos {
 
 	public void printFactura() {
 		Factura factura = IO.in.askForFactura(this);
-		IO.out.toTerminal(factura);
+		IO.out.print(factura);
 		if (EN_TERMINAL) IO.waitIntro();
-	}
+	}						//TODO mover a MenuOpciones o Output
 
 	public void listarFacturas() {
-		IO.out.toTerminal("\n");
+		IO.out.print("\n");
 		Cliente cliente = IO.in.askForCliente(this);
 		IO.out.listar(cliente.getFacturas().values());
-	}
+	}						//TODO mover a MenuOpciones
 
 	public <T extends TieneFecha> Collection<T> elementosEntreFechas(ArrayList<T> lista, LocalDate desde, LocalDate hasta) {
 		PeriodoFacturacion entreEstasFechas = new PeriodoFacturacion(desde, hasta);
