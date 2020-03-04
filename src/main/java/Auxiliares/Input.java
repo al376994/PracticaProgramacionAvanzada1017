@@ -136,7 +136,7 @@ public class Input {
 		return cliente;
 	}
 
-	public Tarifa askForTarifa() {
+	public Tarifa askNewTarifa() {
 		Tarifa tarifa;
 		if (BaseDeDatos.EN_TERMINAL) {
 			tarifa = new Tarifa(IO.in.fromTerminalAskDouble("Introduce el precio de la nueva tarifa"));
@@ -145,13 +145,13 @@ public class Input {
 		return tarifa;
 	}
 
-	public Factura askForFactura() {
+	public Factura askForFactura(BaseDeDatos baseDeDatos) {
 		Factura factura = null;
 		while (factura == null) {
 			String codigo;
 			if (BaseDeDatos.EN_TERMINAL) codigo = IO.in.fromTerminalAskString("Introduce el codigo de la factura: ");
 			else IO.out.toTerminal("No implementado");
-			factura = BaseDeDatos.getFacturas().get(codigo);
+			factura = baseDeDatos.getFacturas().get(codigo);
 			if (factura == null) IO.out.toTerminal("El codigo introducido no es válido");
 		}
 		return factura;
