@@ -17,7 +17,7 @@ import java.util.List;
 // usuario o crear un cliente aleatorio. En esta clase también se maneja la creación de llamadas ya que estas siempre
 // estan vinculadas a un cliente y no tienen clave de identificacion como las facturas. Además de guardar llamadas y
 // facturas propias un cliente tiene un dato interno que es codigoFacturaActual, este se actualiza cada vez que se añade
-// una factura a ese cliente en concreto, la creación concreta de la clave de la factura se explica en la calse Factura.
+// una factura a ese cliente en concreto.
 // El toString es personalizado.
 
 public abstract class Cliente implements TieneFecha {
@@ -84,10 +84,12 @@ public abstract class Cliente implements TieneFecha {
 
 	public void darDeAltaLlamadaRandom() {
 		llamadas.add(generateRandomLlamada());
+		updateImporteFacturas();
 	}
 
 	public void darDeAltaLlamada(Llamada llamada) {
 		llamadas.add(llamada);
+		updateImporteFacturas();
 	}
 
 	public void addFactura(Factura factura) {
@@ -101,6 +103,12 @@ public abstract class Cliente implements TieneFecha {
 	public String getNextFacturaCodigo() {
 		int cod = codigoFacturaActual;
 		return nif + cod;
+	}
+
+	private void updateImporteFacturas() {
+		for (Factura factura : facturas.values()) {
+			factura.updateImporte();
+		}
 	}
 
 	@Override

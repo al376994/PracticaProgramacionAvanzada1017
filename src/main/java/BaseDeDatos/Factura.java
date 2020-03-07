@@ -5,8 +5,11 @@ import Auxiliares.*;
 import java.time.LocalDate;
 
 // La clase Factura representa una factura de un cliente, se puede crear o bien mediante el contructor o una de las
-// funciones darDeAlta, la Random crea una factura aleatoria y la otra pregunta por datos al usuario, ambas añadiran la
-// factura al cliente dado.
+// funciones darDeAlta, la Random crea una factura aleatoria y la otra pregunta por datos al usuario, ambas devolveran
+// la factura. La funcion calculaImporte tiene 2 formas, la publica que solo recive periodoDacturacion y cliente y la
+// privada que recoje tarifa de la propia factura, esta separado así para que se pueda calcular el importe en el
+// constructor. También hay una funcion updateImporte que como indica su nombre vuelve a calcular el importe y
+// sobreescribe la variable importe con el nuevo valor.
 
 public class Factura implements TieneFecha {
 
@@ -40,6 +43,10 @@ public class Factura implements TieneFecha {
 		return importe;
 	}
 
+	public PeriodoFacturacion getPeriodoFacturacion() {
+		return periodoFacturacion;
+	}
+
 	private double calculaImporte(Tarifa tarifa, PeriodoFacturacion periodoFacturacion, Cliente cliente) {
 		double importe = 0;
 		for (Llamada llamada : cliente.getLlamadas()) {
@@ -48,6 +55,14 @@ public class Factura implements TieneFecha {
 			}
 		}
 		return importe;
+	}
+
+	public double calculaImporte() {
+		return calculaImporte(this.tarifa, periodoFacturacion, cliente);
+	}
+
+	public void updateImporte() {
+		importe = calculaImporte();
 	}
 
 	static public Factura darDeAltaRandom(BaseDeDatos baseDeDatos, Cliente cliente) {
