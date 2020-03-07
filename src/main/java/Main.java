@@ -9,7 +9,8 @@ public class Main {
 
         if (BaseDeDatos.EN_TERMINAL) {
             baseDeDatos = new BaseDeDatos();
-            MenuTerminal.run(baseDeDatos);
+            MenuTerminal menuTerminal = new MenuTerminal();
+            menuTerminal.run(baseDeDatos);
         }
 
     }

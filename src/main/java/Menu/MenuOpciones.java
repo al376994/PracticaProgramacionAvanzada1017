@@ -1,23 +1,8 @@
 package Menu;
 
-import Auxiliares.IO;
-import Auxiliares.Llamada;
-import BaseDeDatos.BaseDeDatos;
-import BaseDeDatos.Cliente;
-import BaseDeDatos.Factura;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class MenuOpciones {
 
-	BaseDeDatos baseDeDatos = new BaseDeDatos();
-
-	final String inputText = "\nEscribe el número de la opción que quieres elegir:";
-	final String wrongOption = "Write one of the options.";
-
-	final String[] listaOpcionesPrincipales = {
+	static final String[] listaOpcionesPrincipales = {
 			"1. \tDar de alta a un nuevo cliente",
 			"2. \tBorrar un cliente",
 			"3. \tCambiar la tarifa de un cliente",
@@ -34,7 +19,7 @@ public class MenuOpciones {
 			"14.\tSalir"
 	};
 
-	final String[] listaOpcionesNuevoCliente = {
+	static final String[] listaOpcionesNuevoCliente = {
 			"1. \tDar de alta un Particular",
 			"2. \tDar de alta un Particular aleatorio",
 			"3. \tDar de alta una Empresa",
@@ -42,30 +27,30 @@ public class MenuOpciones {
 			"5. \tCancelar"
 	};
 
-	final String[] listaOpcionesSalida = {
+	static final String[] listaOpcionesSalida = {
 			"1. \tSalir sin guardar",
 			"2. \tGuardar y salir",
 			"3. \tCancelar"
 	};
 
-	final String[] listaOpcionesNuevaLlamada = {
+	static final String[] listaOpcionesNuevaLlamada = {
 			"1. \tDar de alta una Llamada",
 			"2. \tDar de alta una Llamada aleatoria",
 			"3. \tCancelar"
 	};
 
-	final String[] listaOpcionesNuevaFactura= {
+	static final String[] listaOpcionesNuevaFactura= {
 			"1. \tDar de alta una Factura",
 			"2. \tDar de alta una Factura aleatoria",
 			"3. \tCancelar"
 	};
 
-	private final int OPCIONES_PRINCIPALES = 1;
-	private final int OPCIONES_NUEVO_CLIENTE = 2;
-	private final int OPCIONES_NUEVA_LLAMADA = 3;
-	private final int OPCIONES_NUEVA_FACTURA = 4;
-	private final int OPCIONES_SALIDA = -1;
-
+	static final int OPCIONES_PRINCIPALES = 1;
+	static final int OPCIONES_NUEVO_CLIENTE = 2;
+	static final int OPCIONES_NUEVA_LLAMADA = 3;
+	static final int OPCIONES_NUEVA_FACTURA = 4;
+	static final int OPCIONES_SALIDA = -1;
+/*
 	public String getOpciones(String[] opciones) {
 		return String.join("\n", opciones);
 	}
@@ -255,5 +240,5 @@ public class MenuOpciones {
 		IO.waitIntro();
 		return chooseOptionSet(set);
 	}
-
+*/
 }
