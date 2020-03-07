@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
+// El menu cuando se ejecuta para la terminal.
+
 public class MenuTerminal {
 
 	private BaseDeDatos baseDeDatos;

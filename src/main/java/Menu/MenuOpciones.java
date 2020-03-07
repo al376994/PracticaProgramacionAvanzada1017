@@ -1,5 +1,7 @@
 package Menu;
 
+// Basicamente una enumeración de las opciones de los menus.
+
 public class MenuOpciones {
 
 	static final String[] listaOpcionesPrincipales = {
