@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+// Una subclase (hijo) de la clase Cliente, contiene las funciones a las que llama cliente para crear un nuevo
+// Particual, ya sea una aleatoria o una creada por el usuario. Además Particualr añade el atributo appelido.
+// El toString es personalizado.
+
 public class Particular extends Cliente {
 
 	private String apellido;
@@ -20,7 +24,6 @@ public class Particular extends Cliente {
 		this.apellido = apellido;
 	}
 
-	//@Override
 	static Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
@@ -37,7 +40,6 @@ public class Particular extends Cliente {
 				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
 	}
 
-	//@Override
 	static Particular darDeAlta(BaseDeDatos baseDeDatos) {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 		String[] data = IO.in.askNewClienteData(true);

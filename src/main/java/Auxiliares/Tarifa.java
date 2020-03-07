@@ -1,5 +1,9 @@
 package Auxiliares;
 
+// La clase Tarifa representa la tarifa que tiene un cliente o una factura. Por el momento solo guarda un double con
+// el precio de la tarifa y lo puede devolver. Se puede crear una tarifa por defecto con un precio de 0.15 o darle un
+// precio en concreto.
+
 public class Tarifa {
 
 	private double precio;
@@ -9,10 +13,6 @@ public class Tarifa {
 	}
 
 	public Tarifa(double precio) {
-		this.precio = precio;
-	}
-
-	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 

@@ -4,6 +4,10 @@ import Auxiliares.*;
 
 import java.time.LocalDate;
 
+// La clase Factura representa una factura de un cliente, se puede crear o bien mediante el contructor o una de las
+// funciones darDeAlta, la Random crea una factura aleatoria y la otra pregunta por datos al usuario, ambas añadiran la
+// factura al cliente dado.
+
 public class Factura implements TieneFecha {
 
 	private BaseDeDatos baseDeDatos;

@@ -3,6 +3,9 @@ package Auxiliares;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+// La clase Direccion guarda una direccion de un cliente a partir de su provincia y poblacion, el cp se genera a partir
+// de estas dos, por lo que para una misma combinacion de provincia y población siempre se tendra el mismo cp.
+
 public class Direccion {
 	private int cp;
 	private String provincia;

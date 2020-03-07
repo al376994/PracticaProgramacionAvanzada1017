@@ -11,15 +11,17 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+// Una subclase (hijo) de la clase Cliente, contiene las funciones a las que llama cliente para crear una nueva
+// Empresa, ya sea una aleatoria o una creada por el usuario. El toString es personalizado.
+
 public class Empresa extends Cliente {
 
 	private Empresa(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
 		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 	}
-	
-	//@Override
+
 	static Empresa darDeAltaRandom(BaseDeDatos baseDeDatos) {
-		GeneradorDatosINE g = new GeneradorDatosINE();
+		GeneradorDatosINE g = baseDeDatos.generadorDatosINE;
 
 		String nombreEmpresa = g.getNombre();
 		String nifEmpresa = g.getNIF();
@@ -33,11 +35,8 @@ public class Empresa extends Cliente {
 				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
 	}
 
-	//@Override
 	static Empresa darDeAlta(BaseDeDatos baseDeDatos) {
-		GeneradorDatosINE g = new GeneradorDatosINE();
 		String[] data = IO.in.askNewClienteData(false);
-
 		String nombreEmpresa = data[0];
 		String nifEmpresa = data[1];
 		String provinciaEmpresa = data[2];

@@ -12,6 +12,14 @@ import java.time.LocalTime;
 import java.util.Hashtable;
 import java.util.List;
 
+// La clase Cliente representa a un cliente, se puede crear de 2 formas, o bien con el constructor, o bien con la
+// funcion darDeAlta(), esta funcion creara un cliente que puede ser particular o empresa y puede pedir información al
+// usuario o crear un cliente aleatorio. En esta clase también se maneja la creación de llamadas ya que estas siempre
+// estan vinculadas a un cliente y no tienen clave de identificacion como las facturas. Además de guardar llamadas y
+// facturas propias un cliente tiene un dato interno que es codigoFacturaActual, este se actualiza cada vez que se añade
+// una factura a ese cliente en concreto, la creación concreta de la clave de la factura se explica en la calse Factura.
+// El toString es personalizado.
+
 public abstract class Cliente implements TieneFecha {
 
 	private BaseDeDatos baseDeDatos;
@@ -21,7 +29,7 @@ public abstract class Cliente implements TieneFecha {
 	private String correoElectronico;
 	private LocalDate fechaDeAlta;
 	private Tarifa tarifa;
-	private Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
+	private Hashtable<String, Factura> facturas;
 	private List<Llamada> llamadas;
 	private int codigoFacturaActual = 1;
 
@@ -40,12 +48,12 @@ public abstract class Cliente implements TieneFecha {
 	static Cliente darDeAlta(BaseDeDatos baseDeDatos, boolean esParticular, boolean esRandom) {
 		if (esParticular) {
 			Particular particular;
-			if (esRandom) particular = Particular.darDeAlta(baseDeDatos);
+			if (!esRandom) particular = Particular.darDeAlta(baseDeDatos);
 			else particular = Particular.darDeAltaRandom(baseDeDatos);
 			return particular;
 		} else {
 			Empresa empresa;
-			if (esRandom) empresa = Empresa.darDeAlta(baseDeDatos);
+			if (!esRandom) empresa = Empresa.darDeAlta(baseDeDatos);
 			else empresa = Empresa.darDeAltaRandom(baseDeDatos);
 			return empresa;
 		}

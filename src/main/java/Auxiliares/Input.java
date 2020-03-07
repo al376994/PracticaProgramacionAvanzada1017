@@ -10,6 +10,9 @@ import java.time.LocalTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// Todos los inputs se hacer aquí, siempre que se quiera que el usuario introduzca algo de informacion se utilizara
+// esta clase.
+
 public class Input {
 
 	private static Scanner s = new Scanner(System.in);

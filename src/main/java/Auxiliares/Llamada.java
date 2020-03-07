@@ -1,11 +1,13 @@
 package Auxiliares;
 
 import BaseDeDatos.BaseDeDatos;
-import org.javatuples.Quartet;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+// La clase Llamada representa una llamada de un cliente. Se puede crear una llamada directamente con el contructor
+// o mediante la funcion darDeAlta() que utilizara la clase Input para que el usuario introduzca los datos de una
+// nueva llamada, la cree, y la devuelva. El toString es personalizado.
 
 public class Llamada implements TieneFecha {
 

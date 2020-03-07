@@ -4,6 +4,9 @@ import java.util.Collection;
 
 import static BaseDeDatos.BaseDeDatos.EN_TERMINAL;
 
+// Todos los outputs se hacer aquí, siempre que se quiera que algo de informacion se envie a algun medio para que
+// lo vea el usuario se utiliza esta clase.
+
 public class Output {
 
 	private final String SEPARADOR = "\n----------------------------------------------------------------------------------------------------";

@@ -4,6 +4,7 @@ import Auxiliares.IO;
 import Auxiliares.Llamada;
 import Auxiliares.PeriodoFacturacion;
 import Auxiliares.TieneFecha;
+import es.uji.www.GeneradorDatosINE;
 
 import java.time.Duration;
 
@@ -13,6 +14,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 
+// La clase BaseDeDatos como su nombre indica guarda una base de datos, concreteamente de los clientes y las facturas.
+// Tanto clientes como facturas se guardan en HashTables para poder recuperar rapidamente u cliente o una factura a
+// partir de su clave de identificación. En esta clase SOLO se interactua con la base de datos en si, es decir, solo
+// hay funciones que interactuen directamente con las tablas clientes y facturas. También contiene unas variables
+// que se utilizan en todoo el programa por lo que son static y como siempre son iguales son final también, estas son
+// DMY que guarda el formato en el que se muestra una fecha, HMS que guarda el formato en el que se muestra una hora,
+// y EN_TERMINAL que indica al programa que se esta ejecutando el programa en terminal, este se cambiará a false cuando
+// se empiezen las practicas con interfaz grafica.
+
 public class BaseDeDatos {
 
 	private final String SEPARADOR = "\n----------------------------------------------------------------------------------------------------";
@@ -20,9 +30,10 @@ public class BaseDeDatos {
 	public static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	public static final DateTimeFormatter HMS = DateTimeFormatter.ofPattern("hh:mm:ss");
 	public static final boolean EN_TERMINAL = true;
+	public final GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
 
-	private static Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
-	private static Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
+	private Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
+	private Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
 
 	public Hashtable<String, Cliente> getClientes() {
 		return clientes;
@@ -66,6 +77,8 @@ public class BaseDeDatos {
 		if (!clientes.containsKey(key)) {
 			clientes.put(key, cliente);
 			return true;
+		} else {
+			IO.out.print("----------------YA EXISTE UN CLIENTE CON NIF----------------");
 		}
 		return false;
 	}
@@ -154,6 +167,11 @@ public class BaseDeDatos {
 			if (entreEstasFechas.inPeriodoFacturacion(elemento.getFecha())) listaEntreFechas.add(elemento);
 		}
 		return listaEntreFechas;
+	}
+
+	public boolean existsNif(String nif) {
+		if (getCliente(nif) == null) return false;
+		return true;
 	}
 
 	public void exitWithoutSave() {

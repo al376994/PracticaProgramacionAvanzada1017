@@ -16,10 +16,10 @@ class ClienteTest {
 	@BeforeAll
 	static void generateClientes() {
 		b1 = new BaseDeDatos();
-		c1 = new Particular().darDeAltaRandom(b1);
-		c2 = new Particular().darDeAltaRandom(b1);
-		c3 = new Empresa().darDeAltaRandom(b1);
-		c4 = new Empresa().darDeAltaRandom(b1);
+		c1 = Cliente.darDeAlta(b1, true, true);
+		c2 = Cliente.darDeAlta(b1, true, true);
+		c3 = Cliente.darDeAlta(b1, false, true);
+		c4 = Cliente.darDeAlta(b1, false, true);
 	}
 
 	@Test
