@@ -54,6 +54,7 @@ public class MenuTerminal {
 				option = IO.in.getOption(inputText);
 				chooseOptionNuevaFactura(option);
 				printIsSatisfactory(true);
+				return true;
 			case -1:																//Opciones de salida
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesSalida));
 				option = IO.in.getOption(inputText);
@@ -112,8 +113,15 @@ public class MenuTerminal {
 			case 13:										//LISTAR FACTURAS ENTRE FECHAS
 				IO.out.listar(listarFacturasEntreFechas());
 				break;
-			case 14:										// CERRAR EL PROGRAMA
+			case 14:										//LISTAR FACTURAS ENTRE FECHAS
+				baseDeDatos.saveData();
+				break;
+			case 15:										//LISTAR FACTURAS ENTRE FECHAS
+				baseDeDatos.loadData();
+				break;
+			case 16:										// CERRAR EL PROGRAMA
 				chooseOptionSet(MenuOpciones.OPCIONES_SALIDA);
+				break;
 			default:
 				wrongOptionWriten(MenuOpciones.OPCIONES_PRINCIPALES);
 				break;
@@ -163,8 +171,10 @@ public class MenuTerminal {
 			case 3:
 				return true;
 			default:
-				return wrongOptionWriten(MenuOpciones.OPCIONES_NUEVA_FACTURA);
+				wrongOptionWriten(MenuOpciones.OPCIONES_NUEVA_FACTURA);
+				break;
 		}
+		return false;
 	}
 
 	private void chooseOptionSalida(int option) {
@@ -173,7 +183,8 @@ public class MenuTerminal {
 				baseDeDatos.exitWithoutSave();
 				break;
 			case 2:
-				IO.out.print("Opcion no implementada.");
+				baseDeDatos.saveData();
+				System.exit(0);
 				break;
 			case 3:
 				break;

@@ -6,6 +6,7 @@ import Auxiliares.Tarifa;
 import Auxiliares.TieneFecha;
 import es.uji.www.GeneradorDatosINE;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,7 +21,7 @@ import java.util.List;
 // una factura a ese cliente en concreto.
 // El toString es personalizado.
 
-public abstract class Cliente implements TieneFecha {
+public abstract class Cliente implements TieneFecha, Serializable {
 
 	private BaseDeDatos baseDeDatos;
 	private String nombre;
@@ -57,6 +58,7 @@ public abstract class Cliente implements TieneFecha {
 			else empresa = Empresa.darDeAltaRandom(baseDeDatos);
 			return empresa;
 		}
+
 	}
 
 	public String getNombre() {

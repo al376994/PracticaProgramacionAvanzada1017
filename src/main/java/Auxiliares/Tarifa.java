@@ -4,7 +4,9 @@ package Auxiliares;
 // el precio de la tarifa y lo puede devolver. Se puede crear una tarifa por defecto con un precio de 0.15 o darle un
 // precio en concreto.
 
-public class Tarifa {
+import java.io.Serializable;
+
+public class Tarifa implements Serializable {
 
 	private double precio;
 

@@ -2,6 +2,7 @@ package BaseDeDatos;
 
 import Auxiliares.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 // La clase Factura representa una factura de un cliente, se puede crear o bien mediante el contructor o una de las
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 // constructor. También hay una funcion updateImporte que como indica su nombre vuelve a calcular el importe y
 // sobreescribe la variable importe con el nuevo valor.
 
-public class Factura implements TieneFecha {
+public class Factura implements TieneFecha, Serializable {
 
 	private BaseDeDatos baseDeDatos;
 	private String codigo;
@@ -80,7 +81,7 @@ public class Factura implements TieneFecha {
 	@Override
 	public String toString(){
 		return "Factura: " + codigo + " emitida el " + fechaEmision.format(BaseDeDatos.DMY) +
-				"\nPeriodo de facturacion" + periodoFacturacion.getStart().format(BaseDeDatos.HMS) + " - " + periodoFacturacion.getEnd() +
+				"\nPeriodo de facturacion" + periodoFacturacion.getStart().format(BaseDeDatos.DMY) + " - " + periodoFacturacion.getEnd().format(BaseDeDatos.DMY) +
 				"\nImporte: " + importe;
 	}
 

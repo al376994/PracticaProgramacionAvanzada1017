@@ -6,6 +6,7 @@ import Auxiliares.PeriodoFacturacion;
 import Auxiliares.TieneFecha;
 import es.uji.www.GeneradorDatosINE;
 
+import java.io.*;
 import java.time.Duration;
 
 import java.time.LocalDate;
@@ -23,14 +24,13 @@ import java.util.Hashtable;
 // y EN_TERMINAL que indica al programa que se esta ejecutando el programa en terminal, este se cambiará a false cuando
 // se empiezen las practicas con interfaz grafica.
 
-public class BaseDeDatos {
+public class BaseDeDatos implements Serializable {
 
 	private final String SEPARADOR = "\n----------------------------------------------------------------------------------------------------";
 
 	public static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	public static final DateTimeFormatter HMS = DateTimeFormatter.ofPattern("hh:mm:ss");
 	public static final boolean EN_TERMINAL = true;
-	public final GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
 
 	private Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
 	private Hashtable<String, Factura> facturas = new Hashtable<String, Factura>();
@@ -173,6 +173,45 @@ public class BaseDeDatos {
 		if (getCliente(nif) == null) return false;
 		return true;
 	}
+
+	public void saveData(){
+		FileOutputStream archive = null;
+		ObjectOutputStream object = null;
+		try {
+			archive = new FileOutputStream("data/clientes.bin");
+			object = new ObjectOutputStream(archive);
+			object.writeObject(clientes);
+			archive = new FileOutputStream("data/facturas.bin");
+			object = new ObjectOutputStream(archive);
+			object.writeObject(facturas);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadData(){
+		FileInputStream archive = null;
+		ObjectInputStream object = null;
+		try {
+			archive = new FileInputStream("data/clientes.bin");
+			object = new ObjectInputStream(archive);
+			clientes = (Hashtable<String,Cliente>) object.readObject();
+			archive = new FileInputStream("data/facturas.bin");
+			object = new ObjectInputStream(archive);
+			facturas = (Hashtable<String,Factura>) object.readObject();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
 
 	public void exitWithoutSave() {
 		System.exit(0);

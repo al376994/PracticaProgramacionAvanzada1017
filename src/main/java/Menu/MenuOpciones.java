@@ -18,7 +18,9 @@ public class MenuOpciones {
 			"11.\tListar clientes dados de alta entre 2 fechas",
 			"12.\tListar llamadas de un cliente entre 2 fechas",
 			"13.\tListar facturas de un cliente entre 2 fechas",
-			"14.\tSalir"
+			"14.\tGuardar todos los datos",
+			"15.\tCargar todos los datos",
+			"16.\tSalir"
 	};
 
 	static final String[] listaOpcionesNuevoCliente = {

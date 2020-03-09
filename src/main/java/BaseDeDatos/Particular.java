@@ -6,6 +6,7 @@ import Auxiliares.Llamada;
 import Auxiliares.Tarifa;
 import es.uji.www.GeneradorDatosINE;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -15,7 +16,7 @@ import java.util.List;
 // Particual, ya sea una aleatoria o una creada por el usuario. Además Particualr añade el atributo appelido.
 // El toString es personalizado.
 
-public class Particular extends Cliente {
+public class Particular extends Cliente implements Serializable {
 
 	private String apellido;
 

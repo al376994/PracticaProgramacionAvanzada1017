@@ -1,6 +1,8 @@
 package Auxiliares;
 
 import BaseDeDatos.BaseDeDatos;
+
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,7 +11,7 @@ import java.time.LocalTime;
 // o mediante la funcion darDeAlta() que utilizara la clase Input para que el usuario introduzca los datos de una
 // nueva llamada, la cree, y la devuelva. El toString es personalizado.
 
-public class Llamada implements TieneFecha {
+public class Llamada implements TieneFecha, Serializable {
 
 	private String telefono;
 	private LocalDate fecha;

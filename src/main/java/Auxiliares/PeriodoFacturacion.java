@@ -2,6 +2,7 @@ package Auxiliares;
 
 import BaseDeDatos.BaseDeDatos;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 // La clase PeriodoFacturacion representa el periodo entre 2 fechas, y se utiliza para indicar el inicio y el final de
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 // También tiene la funcion inPeriodoFacturacion que recive una fecha y devuelve true si esta esta dentro de periodo y
 // false en el caso contrario. El toString es personalizado.
 
-public class PeriodoFacturacion {
+public class PeriodoFacturacion implements Serializable {
 	private LocalDate start;
 	private LocalDate end;
 

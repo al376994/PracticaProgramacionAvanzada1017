@@ -6,6 +6,7 @@ import Auxiliares.Llamada;
 import Auxiliares.Tarifa;
 import es.uji.www.GeneradorDatosINE;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -14,14 +15,14 @@ import java.util.List;
 // Una subclase (hijo) de la clase Cliente, contiene las funciones a las que llama cliente para crear una nueva
 // Empresa, ya sea una aleatoria o una creada por el usuario. El toString es personalizado.
 
-public class Empresa extends Cliente {
+public class Empresa extends Cliente implements Serializable {
 
 	private Empresa(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
 		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 	}
 
 	static Empresa darDeAltaRandom(BaseDeDatos baseDeDatos) {
-		GeneradorDatosINE g = baseDeDatos.generadorDatosINE;
+		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreEmpresa = g.getNombre();
 		String nifEmpresa = g.getNIF();
