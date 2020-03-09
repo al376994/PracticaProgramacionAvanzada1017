@@ -15,9 +15,7 @@ import java.util.Collection;
 public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base de datos) preguntar porque y que hacer al respecto
 							// (esto estaba antes en MenuOpciones, pero como ahora el menu esta aqui pues tiene sentido que este aquí)
 
-	private BaseDeDatos baseDeDatos;	// TODO: Profesor(El parámetro no se usa, eliminadlo) ahora el parámetro si se usa
-	private final String inputText = "\nEscribe el número de la opción que quieres elegir:";
-	private final String wrongOption = "Write one of the options.";
+	private BaseDeDatos baseDeDatos;	// TODO: Profesor(El parámetro no se usa, eliminadlo) ahora el parámetro si se usa porque se han redistribuido las funciones
 
 	public void run(BaseDeDatos baseDeDatos) {
 		this.baseDeDatos = baseDeDatos;
@@ -31,6 +29,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 
 	private boolean chooseOptionSet(int set) {
 		int option;
+		String inputText = "\nEscribe el número de la opción que quieres elegir:";
 		switch (set) {
 			case 1:																	//Menu principal
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesPrincipales));
@@ -226,7 +225,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	}
 
 	private boolean wrongOptionWriten(int set) {
-		IO.out.print(wrongOption);
+		IO.out.print("Write one of the options.");
 		IO.waitIntro();
 		return chooseOptionSet(set);
 	}
