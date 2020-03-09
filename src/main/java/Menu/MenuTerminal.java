@@ -12,17 +12,17 @@ import java.util.Collection;
 
 // El menu cuando se ejecuta para la terminal.
 
-public class MenuTerminal {
+public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base de datos) preguntar porque y que hacer al respecto
+							// (esto estaba antes en MenuOpciones, pero como ahora el menu esta aqui pues tiene sentido que este aquí)
 
-	private BaseDeDatos baseDeDatos;
+	private BaseDeDatos baseDeDatos;	// TODO: Profesor(El parámetro no se usa, eliminadlo) ahora el parámetro si se usa
 	private final String inputText = "\nEscribe el número de la opción que quieres elegir:";
 	private final String wrongOption = "Write one of the options.";
 
 	public void run(BaseDeDatos baseDeDatos) {
 		this.baseDeDatos = baseDeDatos;
-		MenuOpciones menuOpciones = new MenuOpciones();
 		IO.out.print("Menu de Terminal de la aplicación de Facturación");
-		chooseOptionSet(1);
+		chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
 	}
 
 	private String getOpciones(String[] opciones) {

@@ -79,7 +79,7 @@ public class Factura implements TieneFecha, Serializable {
 	}
 
 	@Override
-	public String toString(){
+	public String toString(){	// TODO: Profesor(muere porque el periodo de facturación no tiene hora) solucionado
 		return "Factura: " + codigo + " emitida el " + fechaEmision.format(BaseDeDatos.DMY) +
 				"\nPeriodo de facturacion" + periodoFacturacion.getStart().format(BaseDeDatos.DMY) + " - " + periodoFacturacion.getEnd().format(BaseDeDatos.DMY) +
 				"\nImporte: " + importe;

@@ -13,7 +13,8 @@ import java.util.Scanner;
 // Todos los inputs se hacer aquí, siempre que se quiera que el usuario introduzca algo de informacion se utilizara
 // esta clase.
 
-public class Input {
+public class Input {	// TODO: Profesor(deberíais usar la herencia para evitar tener que ir repetidamente) ¿como?
+						// TODO: Profesor(comprobando si estáis EN_TERMINAL) ¿que quiere decir esto?
 
 	private static Scanner s = new Scanner(System.in);
 
