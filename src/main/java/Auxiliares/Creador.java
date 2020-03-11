@@ -15,7 +15,7 @@ public class Creador {
 			else cliente = Cliente.darDeAlta(false, false);
 		}
 		return cliente;
-	}	//TODO borrar equivalente en BaseDeDatos		HECHO
+	}
 
 	static public Llamada nuevaLlamada(boolean random) {
 		if (random) {
@@ -23,7 +23,7 @@ public class Creador {
 		} else {
 			return Llamada.darDeAlta();
 		}
-	}	//TODO separar creacion de llamada y la accion de añadirla a un usuario, mover la creacion a Creador
+	}
 
 	static public Factura nuevaFactura(Cliente cliente, boolean random) {
 		Factura factura;
@@ -33,7 +33,7 @@ public class Creador {
 			factura = Factura.darDeAlta(cliente);
 		}
 		return factura;
-	}	//TODO borrar equivalente en BaseDeDatos		HECHO
+	}
 
 	static public Tarifa nuevaTarifa() {
 		return IO.in.askNewTarifa();

@@ -31,7 +31,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		return String.join("\n", opciones);
 	}	//Añadido de MenuOpciones
 
-	private void chooseOptionSet(int set) {		//TODO comprobar si es necesario que sea boolean
+	private void chooseOptionSet(int set) {
 		int option;
 		String inputText = "\nEscribe el número de la opción que quieres elegir:";
 		switch (set) {
