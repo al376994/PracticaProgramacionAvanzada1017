@@ -23,7 +23,7 @@ public class Output {
 	public <T> void listar(Collection<T> lista) {
 		if (EN_TERMINAL) {
 			for (T elemento : lista) {
-				IO.out.print(elemento);
+				IO.out.print("\n" + elemento);
 			}
 			IO.out.print(SEPARADOR);
 			IO.waitIntro();
