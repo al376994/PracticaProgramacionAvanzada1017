@@ -30,7 +30,7 @@ public class TestLlamada {
 	@BeforeAll
 	static void createLlamadas() {
 		dmy = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		hms = DateTimeFormatter.ofPattern("hh:mm:ss");
+		hms = DateTimeFormatter.ofPattern("HH:mm:ss");
 		d1 = LocalDate.now();
 		d2 = LocalDate.now();
 		d3 = LocalDate.now();
