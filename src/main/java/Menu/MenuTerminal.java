@@ -45,19 +45,16 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 				option = IO.in.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevoCliente(option));
 				break;
-				//return satisfactory;
 			case 3:																	//Crear llamada
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaLlamada));
 				option = IO.in.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevaLlamada(option));
 				break;
-				//return true;
 			case 4:																	//Crear factura
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaFactura));
 				option = IO.in.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevaFactura(option));
 				break;
-				//return true;
 			case -1:																//Opciones de salida
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesSalida));
 				option = IO.in.getOption(inputText);
@@ -65,8 +62,6 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 				break;
 			default:
 				IO.out.print("Error choosing a Menu Set(" + set + "), returning to Main Menu");
-				option = IO.in.getOption(inputText);
-				//chooseOptionPrincipales(option);
 				break;
 		}
 		//return chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
