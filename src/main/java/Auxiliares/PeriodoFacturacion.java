@@ -16,8 +16,13 @@ public class PeriodoFacturacion implements Serializable {
 	private LocalDate end;
 
 	public PeriodoFacturacion(LocalDate start, LocalDate end) {
-		this.start = start;
-		this.end = end;
+		if (end.isAfter(start)) {
+			this.start = start;
+			this.end = end;
+		} else {
+			this.start = end;
+			this.end = start;
+		}
 	}
 
 	static public PeriodoFacturacion askDates() {
