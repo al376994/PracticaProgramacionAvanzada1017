@@ -22,7 +22,7 @@ import java.util.List;
 // El toString es personalizado.
 
 public abstract class Cliente implements TieneFecha, Serializable {
-	
+
 	private String nombre;
 	private String nif;
 	private Direccion direccion;

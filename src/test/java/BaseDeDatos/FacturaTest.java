@@ -32,20 +32,20 @@ class FacturaTest {
 		l1 = new Llamada("1", LocalDate.now(), LocalTime.now(), Duration.ofSeconds(10));
 		l2 = new Llamada("1", LocalDate.now().plusDays(15), LocalTime.now(), Duration.ofSeconds(10));
 		l3 = new Llamada("1", LocalDate.now().plusMonths(3), LocalTime.now(), Duration.ofSeconds(10));
-		c1 = Cliente.darDeAlta(b1, true, true);
+		c1 = Cliente.darDeAlta(true, true);
 		c1.darDeAltaLlamada(l1);
 		c1.darDeAltaLlamada(l2);
 		c1.darDeAltaLlamada(l3);
-		f1 = new Factura(b1, c1.getNif() + "1", new Tarifa(), LocalDate.now(), new PeriodoFacturacion(LocalDate.now(), LocalDate.now().plusMonths(1)), c1);
-		f2 = new Factura(b1, c1.getNif() + "2", new Tarifa(), LocalDate.now(), new PeriodoFacturacion(LocalDate.now().plusDays(20), LocalDate.now().plusMonths(5)), c1);
+		f1 = new Factura(c1.getNif() + "1", new Tarifa(), LocalDate.now(), new PeriodoFacturacion(LocalDate.now(), LocalDate.now().plusMonths(1)), c1);
+		f2 = new Factura(c1.getNif() + "2", new Tarifa(), LocalDate.now(), new PeriodoFacturacion(LocalDate.now().plusDays(20), LocalDate.now().plusMonths(5)), c1);
 		l4 = new Llamada("1", LocalDate.now(), LocalTime.now(), Duration.ofSeconds(5));
 		l5 = new Llamada("1", LocalDate.now().plusDays(15), LocalTime.now(), Duration.ofSeconds(5));
 		l6 = new Llamada("1", LocalDate.now().plusMonths(3), LocalTime.now(), Duration.ofSeconds(5));
-		c2 = Cliente.darDeAlta(b1, true, true);
+		c2 = Cliente.darDeAlta(true, true);
 		c2.darDeAltaLlamada(l4);
 		c2.darDeAltaLlamada(l5);
 		c2.darDeAltaLlamada(l6);
-		f3 = new Factura(b1, c2.getNif() + "1", new Tarifa(), LocalDate.now(), new PeriodoFacturacion(LocalDate.now(), LocalDate.now().plusMonths(6)), c2);
+		f3 = new Factura(c2.getNif() + "1", new Tarifa(), LocalDate.now(), new PeriodoFacturacion(LocalDate.now(), LocalDate.now().plusMonths(6)), c2);
 
 		b1.addFactura(f1);
 	}

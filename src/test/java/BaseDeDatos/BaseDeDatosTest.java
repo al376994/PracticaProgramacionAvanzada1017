@@ -15,8 +15,8 @@ class BaseDeDatosTest {
 	@BeforeEach
 	void generateCliente() {
 		b1 = new BaseDeDatos();
-		c1 = Cliente.darDeAlta(b1, true, true);
-		c2 = Cliente.darDeAlta(b1, false, true);
+		c1 = Cliente.darDeAlta(true, true);
+		c2 = Cliente.darDeAlta(false, true);
 	}
 
 	@Test

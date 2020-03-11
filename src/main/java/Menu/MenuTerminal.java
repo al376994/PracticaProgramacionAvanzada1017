@@ -31,7 +31,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		return String.join("\n", opciones);
 	}	//Añadido de MenuOpciones
 
-	private boolean chooseOptionSet(int set) {
+	private void chooseOptionSet(int set) {		//TODO comprobar si es necesario que sea boolean
 		int option;
 		String inputText = "\nEscribe el número de la opción que quieres elegir:";
 		switch (set) {
@@ -43,21 +43,18 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 			case 2:																	//Seleccinar tipo de cliente
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevoCliente));
 				option = IO.in.getOption(inputText);
-				boolean satisfactory = chooseOptionNuevoCliente(option);
-				printIsSatisfactory(satisfactory);
-				return satisfactory;
+				printIsSatisfactory(chooseOptionNuevoCliente(option));
+				//return satisfactory;
 			case 3:																	//Crear llamada
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaLlamada));
 				option = IO.in.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevaLlamada(option));
-				printIsSatisfactory(true);
-				return true;
+				//return true;
 			case 4:																	//Crear factura
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaFactura));
 				option = IO.in.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevaFactura(option));
-				printIsSatisfactory(true);
-				return true;
+				//return true;
 			case -1:																//Opciones de salida
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesSalida));
 				option = IO.in.getOption(inputText);
@@ -65,10 +62,10 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 			default:
 				IO.out.print("Error choosing a Menu Set(" + set + "), returning to Main Menu");
 				option = IO.in.getOption(inputText);
-				chooseOptionPrincipales(option);
+				//chooseOptionPrincipales(option);
 				break;
 		}
-		return chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
+		//return chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
 	}
 
 	// Todos los choose a lo qeu llama chooseOptionSet a partir de aqui
