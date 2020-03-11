@@ -23,10 +23,10 @@ import java.util.Hashtable;
 
 public class BaseDeDatos implements Serializable {
 
-	private final String SEPARADOR = "\n----------------------------------------------------------------------------------------------------";
+	private final String SEPARADOR = "----------------------------------------------------------------------------------------------------";
 
 	public static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	public static final DateTimeFormatter HMS = DateTimeFormatter.ofPattern("hh:mm:ss");
+	public static final DateTimeFormatter HMS = DateTimeFormatter.ofPattern("HH:mm:ss");
 	public static final boolean EN_TERMINAL = true;
 
 	private Hashtable<String, Cliente> clientes = new Hashtable<String, Cliente>();
@@ -109,7 +109,7 @@ public class BaseDeDatos implements Serializable {
 		return listaEntreFechas;
 	}
 
-	public void saveData(){
+	public boolean saveData(){
 		FileOutputStream archive = null;
 		ObjectOutputStream object = null;
 		try {
@@ -121,12 +121,15 @@ public class BaseDeDatos implements Serializable {
 			object.writeObject(facturas);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 
-	public void loadData(){
+	public boolean loadData(){
 		FileInputStream archive = null;
 		ObjectInputStream object = null;
 		try {
@@ -138,11 +141,15 @@ public class BaseDeDatos implements Serializable {
 			facturas = (Hashtable<String,Factura>) object.readObject();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 
 	public void exitWithoutSave() {
