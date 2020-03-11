@@ -22,8 +22,7 @@ import java.util.List;
 // El toString es personalizado.
 
 public abstract class Cliente implements TieneFecha, Serializable {
-
-	//private BaseDeDatos baseDeDatos;
+	
 	private String nombre;
 	private String nif;
 	private Direccion direccion;
@@ -34,8 +33,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
 	private List<Llamada> llamadas;
 	private int codigoFacturaActual = 1;
 
-	Cliente(/*BaseDeDatos baseDeDatos, */String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
-		//this.baseDeDatos = baseDeDatos;
+	Cliente(String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
 		this.nombre = nombre;
 		this.nif = nif;
 		this.direccion = direccion;
@@ -46,7 +44,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
 		this.llamadas = llamadas;
 	}
 
-	public static Cliente darDeAlta(/*BaseDeDatos baseDeDatos, */boolean esParticular, boolean esRandom) {
+	public static Cliente darDeAlta(boolean esParticular, boolean esRandom) {
 		if (esParticular) {
 			Particular particular;
 			if (!esRandom) particular = Particular.darDeAlta();
