@@ -154,7 +154,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	}
 
 	private void listarClientes() {
-		IO.out.print("\n");
+		//IO.out.print("\n");
 		IO.out.listar(baseDeDatos.getClientes().values());
 	}
 

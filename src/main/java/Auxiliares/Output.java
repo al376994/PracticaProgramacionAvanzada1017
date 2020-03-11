@@ -22,6 +22,7 @@ public class Output {
 
 	public <T> void listar(Collection<T> lista) {
 		if (EN_TERMINAL) {
+			IO.out.print(SEPARADOR, "");
 			for (T elemento : lista) {
 				IO.out.print("\n" + elemento);
 			}
