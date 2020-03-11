@@ -32,7 +32,7 @@ public class Particular extends Cliente implements Serializable {
 		String nifParticular = g.getNIF();
 		String provinciaParticular = g.getProvincia();
 		Direccion direccionParticular = new Direccion(provinciaParticular, g.getPoblacion(provinciaParticular));
-		String correoElectronicoParticular = nombreParticular + "@correo.com";
+		String correoElectronicoParticular = nombreParticular.replace(' ', '_') + "@correo.com";
 		Hashtable<String, Factura> facturasParticular = new Hashtable<String, Factura>();
 		List<Llamada> llamadasParticular = new ArrayList<>();
 		String apellidoParticular = g.getApellido();
@@ -42,14 +42,13 @@ public class Particular extends Cliente implements Serializable {
 	}
 
 	static Particular darDeAlta() {
-		GeneradorDatosINE g = new GeneradorDatosINE();
 		String[] data = IO.in.askNewClienteData(true);
 
 		String nombreParticular = data[0];
 		String nifParticular = data[1];
 		String provinciaParticular = data[2];
 		Direccion direccionParticular = new Direccion(provinciaParticular, data[3]);
-		String correoElectronicoParticular = nombreParticular + "@correo.com";
+		String correoElectronicoParticular = nombreParticular.replace(' ', '_') + "@correo.com";
 		Hashtable<String, Factura> facturasParticular = new Hashtable<String, Factura>();
 		List<Llamada> llamadasParticular = new ArrayList<>();
 		String apellidoParticular = data[4];

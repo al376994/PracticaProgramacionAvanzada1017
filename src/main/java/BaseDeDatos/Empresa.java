@@ -28,7 +28,7 @@ public class Empresa extends Cliente implements Serializable {
 		String nifEmpresa = g.getNIF();
 		String provinciaEmpresa = g.getProvincia();
 		Direccion direccionEmpresa = new Direccion(provinciaEmpresa, g.getPoblacion(provinciaEmpresa));
-		String correoElectronicoEmpresa = nombreEmpresa + "@correo.com";
+		String correoElectronicoEmpresa = nombreEmpresa.replace(' ', '_') + "@correo.com";
 		Hashtable<String, Factura> facturasEmpresa = new Hashtable<String, Factura>();
 		List<Llamada> llamadasEmpresa = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class Empresa extends Cliente implements Serializable {
 		String nifEmpresa = data[1];
 		String provinciaEmpresa = data[2];
 		Direccion direccionEmpresa = new Direccion(provinciaEmpresa, data[3]);
-		String correoElectronicoEmpresa = nombreEmpresa + "@correo.com";
+		String correoElectronicoEmpresa = nombreEmpresa.replace(' ', '_') + "@correo.com";
 		Hashtable<String, Factura> facturasEmpresa = new Hashtable<String, Factura>();
 		List<Llamada> llamadasEmpresa = new ArrayList<>();
 
