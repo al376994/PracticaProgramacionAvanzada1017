@@ -28,7 +28,7 @@ public class Llamada implements TieneFecha, Serializable {
 
 	static public Llamada generateRandomLlamada() {
 		GeneradorDatosINE g = new GeneradorDatosINE();
-		String tel =  "9" + g.getNIF().substring(0, 7);
+		String tel =  "9" + g.getNIF().substring(0, 8);
 		Duration dur = BaseDeDatos.randomDuration(10, 60);
 		return new Llamada(tel, LocalDate.now(), LocalTime.now(), dur);
 	}
