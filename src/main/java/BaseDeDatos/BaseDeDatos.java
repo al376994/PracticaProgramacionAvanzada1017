@@ -55,8 +55,6 @@ public class BaseDeDatos implements Serializable {
 		if (!clientes.containsKey(key)) {
 			clientes.put(key, cliente);
 			return true;
-		} else {
-			IO.out.print("----------------YA EXISTE UN CLIENTE CON NIF----------------");
 		}
 		return false;
 	}

@@ -1,9 +1,6 @@
 package Menu;
 
-import Auxiliares.Creador;
-import Auxiliares.IO;
-import Auxiliares.Llamada;
-import Auxiliares.Tarifa;
+import Auxiliares.*;
 import BaseDeDatos.BaseDeDatos;
 import BaseDeDatos.Cliente;
 import BaseDeDatos.Factura;
@@ -14,14 +11,15 @@ import java.util.Collection;
 
 // El menu cuando se ejecuta para la terminal.
 
-public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base de datos) preguntar porque y que hacer al respecto
-							// (esto estaba antes en MenuOpciones, pero como ahora el menu esta aqui pues tiene sentido que este aquí)
+public class MenuTerminal {
 
-	private BaseDeDatos baseDeDatos;	// TODO: Profesor(El parámetro no se usa, eliminadlo) ahora el parámetro si se usa porque se han redistribuido las funciones
+	private BaseDeDatos baseDeDatos;
+	private InOut entradaSalida = new IOTerminal();
+	private Creador creador = new Creador(entradaSalida);
 
 	public void run(BaseDeDatos baseDeDatos) {
 		this.baseDeDatos = baseDeDatos;
-		IO.out.print("Menu de Terminal de la aplicación de Facturación");
+		entradaSalida.print("Menu de Terminal de la aplicación de Facturación");
 		while (true) {
 			chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
 		}
@@ -36,32 +34,32 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		String inputText = "\nEscribe el número de la opción que quieres elegir:";
 		switch (set) {
 			case 1:																	//Menu principal
-				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesPrincipales));
-				option = IO.in.getOption(inputText);
+				entradaSalida.print("\n" + getOpciones(MenuOpciones.listaOpcionesPrincipales));
+				option = entradaSalida.getOption(inputText);
 				chooseOptionPrincipales(option);
 				break;
 			case 2:																	//Seleccinar tipo de cliente
-				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevoCliente));
-				option = IO.in.getOption(inputText);
+				entradaSalida.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevoCliente));
+				option = entradaSalida.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevoCliente(option));
 				break;
 			case 3:																	//Crear llamada
-				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaLlamada));
-				option = IO.in.getOption(inputText);
+				entradaSalida.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaLlamada));
+				option = entradaSalida.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevaLlamada(option));
 				break;
 			case 4:																	//Crear factura
-				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaFactura));
-				option = IO.in.getOption(inputText);
+				entradaSalida.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaFactura));
+				option = entradaSalida.getOption(inputText);
 				printIsSatisfactory(chooseOptionNuevaFactura(option));
 				break;
 			case -1:																//Opciones de salida
-				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesSalida));
-				option = IO.in.getOption(inputText);
+				entradaSalida.print("\n" + getOpciones(MenuOpciones.listaOpcionesSalida));
+				option = entradaSalida.getOption(inputText);
 				chooseOptionSalida(option);
 				break;
 			default:
-				IO.out.print("Error choosing a Menu Set(" + set + "), returning to Main Menu");
+				entradaSalida.print("Error choosing a Menu Set(" + set + "), returning to Main Menu");
 				break;
 		}
 		//return chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
@@ -107,13 +105,13 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 				listarFacturas();
 				break;
 			case 11:										//LISTAR CLIENTES ENTRE FECHAS
-				IO.out.listar(listarClientesEntreFechas());
+				entradaSalida.listar(listarClientesEntreFechas());
 				break;
 			case 12:										//LISTAR LLAMADAS ENTRE FECHAS
-				IO.out.listar(listarLlamadassEntreFechas());
+				entradaSalida.listar(listarLlamadassEntreFechas());
 				break;
 			case 13:										//LISTAR FACTURAS ENTRE FECHAS
-				IO.out.listar(listarFacturasEntreFechas());
+				entradaSalida.listar(listarFacturasEntreFechas());
 				break;
 			case 14:										//GUARDAR BASE DE DATOS
 				printIsSatisfactory(baseDeDatos.saveData());
@@ -132,43 +130,42 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 
 	private boolean askBorrarCliente() {
 		String nif;
-		nif = IO.in.askNIF();
+		nif = entradaSalida.askNIF();
 		return baseDeDatos.borrarCliente(nif);
 	}
 
 	private boolean cambiarTarifa() {
-		String nif = IO.in.askNIF();
-		Tarifa tarifa = Creador.nuevaTarifa();
+		String nif = entradaSalida.askNIF();
+		Tarifa tarifa = creador.nuevaTarifa();
 		return baseDeDatos.cambiarTarifa(nif, tarifa);
 	}
 
 	private void printCliente() {
-		Cliente cliente = IO.in.askForCliente(baseDeDatos);
-		IO.out.print("\n" + cliente + "\n");
-		IO.waitIntro();
+		Cliente cliente = entradaSalida.askForCliente(baseDeDatos);
+		entradaSalida.print("\n" + cliente + "\n");
+		entradaSalida.waitIntro();
 	}
 
 	private void listarClientes() {
-		//IO.out.print("\n");
-		IO.out.listar(baseDeDatos.getClientes().values());
+		entradaSalida.listar(baseDeDatos.getClientes().values());
 	}
 
 	private void listarLlamadas() {
-		IO.out.print("\n");
-		Cliente cliente = IO.in.askForCliente(baseDeDatos);
-		IO.out.listar(cliente.getLlamadas());
+		entradaSalida.print("\n");
+		Cliente cliente = entradaSalida.askForCliente(baseDeDatos);
+		entradaSalida.listar(cliente.getLlamadas());
 	}
 
 	private void printFactura() {
-		Factura factura = IO.in.askForFactura(baseDeDatos);
-		IO.out.print(factura);
-		IO.waitIntro();
+		Factura factura = entradaSalida.askForFactura(baseDeDatos);
+		entradaSalida.print(factura);
+		entradaSalida.waitIntro();
 	}
 
 	private void listarFacturas() {
-		IO.out.print("\n");
-		Cliente cliente = IO.in.askForCliente(baseDeDatos);
-		IO.out.listar(cliente.getFacturas().values());
+		entradaSalida.print("\n");
+		Cliente cliente = entradaSalida.askForCliente(baseDeDatos);
+		entradaSalida.listar(cliente.getFacturas().values());
 	}
 
 	//	********************************************************************************************************  \\
@@ -179,20 +176,20 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		Cliente cliente;
 		switch (option) {
 			case 1:
-				cliente = Creador.nuevoCliente(true, false);
-				IO.out.print("\n" + cliente + "\n");
+				cliente = creador.nuevoCliente(true, false);
+				entradaSalida.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 2:
-				cliente = Creador.nuevoCliente(true, true);
-				IO.out.print("\n" + cliente + "\n");
+				cliente = creador.nuevoCliente(true, true);
+				entradaSalida.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 3:
-				cliente = Creador.nuevoCliente(false, false);
-				IO.out.print("\n" + cliente + "\n");
+				cliente = creador.nuevoCliente(false, false);
+				entradaSalida.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 4:
-				cliente = Creador.nuevoCliente(false, true);
-				IO.out.print("\n" + cliente + "\n");
+				cliente = creador.nuevoCliente(false, true);
+				entradaSalida.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 5:
 				return true;
@@ -223,9 +220,9 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	}
 
 	private boolean nuevaLlamada(boolean random) {
-		String nif = IO.in.askNIF();
-		Llamada llamada = Creador.nuevaLlamada(random);
-		IO.out.print("\n" + llamada + "\n");
+		String nif = entradaSalida.askNIF();
+		Llamada llamada = creador.nuevaLlamada(random);
+		entradaSalida.print("\n" + llamada + "\n");
 		return baseDeDatos.addLlamada(nif, llamada);
 	}
 
@@ -249,9 +246,9 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	}
 
 	private boolean nuevaFactura(boolean random) {
-		Cliente cliente = IO.in.askForCliente(baseDeDatos);
-		Factura factura = Creador.nuevaFactura(cliente, random);
-		IO.out.print("\n" + factura + "\n");
+		Cliente cliente = entradaSalida.askForCliente(baseDeDatos);
+		Factura factura = creador.nuevaFactura(cliente, random);
+		entradaSalida.print("\n" + factura + "\n");
 		return baseDeDatos.addFactura(factura);
 	}
 
@@ -280,36 +277,36 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 
 	private Collection<Cliente> listarClientesEntreFechas() {
 		ArrayList<Cliente> clientes = new ArrayList<>(baseDeDatos.getClientes().values());
-		LocalDate desde = IO.in.askDate("de la fecha inicial");
-		LocalDate hasta = IO.in.askDate("de la fecha final");
+		LocalDate desde = entradaSalida.askDate("de la fecha inicial");
+		LocalDate hasta = entradaSalida.askDate("de la fecha final");
 		return baseDeDatos.elementosEntreFechas(clientes, desde, hasta);
 	}
 
 	private Collection<Llamada> listarLlamadassEntreFechas() {
-		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		Cliente cliente = entradaSalida.askForCliente(baseDeDatos);
 		ArrayList<Llamada> llamadas = new ArrayList<>(cliente.getLlamadas());
-		LocalDate desde = IO.in.askDate("de la fecha inicial");
-		LocalDate hasta = IO.in.askDate("de la fecha final");
+		LocalDate desde = entradaSalida.askDate("de la fecha inicial");
+		LocalDate hasta = entradaSalida.askDate("de la fecha final");
 		return baseDeDatos.elementosEntreFechas(llamadas, desde, hasta);
 	}
 
 	private Collection<Factura> listarFacturasEntreFechas() {
-		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		Cliente cliente = entradaSalida.askForCliente(baseDeDatos);
 		ArrayList<Factura> facturas = new ArrayList<>(cliente.getFacturas().values());
-		LocalDate desde = IO.in.askDate("de la fecha inicial");
-		LocalDate hasta = IO.in.askDate("de la fecha final");
+		LocalDate desde = entradaSalida.askDate("de la fecha inicial");
+		LocalDate hasta = entradaSalida.askDate("de la fecha final");
 		return baseDeDatos.elementosEntreFechas(facturas, desde, hasta);
 	}
 
 	private void printIsSatisfactory(boolean s) {
-		if (s) IO.out.print("Operacion completada con exito");
-		else IO.out.print("La operacion no se ha podido realizar");
-		IO.waitIntro();
+		if (s) entradaSalida.print("Operacion completada con exito");
+		else entradaSalida.print("La operacion no se ha podido realizar");
+		entradaSalida.waitIntro();
 	}
 
 	private void wrongOptionWriten(int set) {
-		IO.out.print("Write one of the options.");
-		IO.waitIntro();
+		entradaSalida.print("Write one of the options.");
+		entradaSalida.waitIntro();
 		chooseOptionSet(set);
 	}
 }

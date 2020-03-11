@@ -18,6 +18,10 @@ public class Tarifa implements Serializable {
 		this.precio = precio;
 	}
 
+	public Tarifa darDeAlta(InOut entradaSalida) {
+		return entradaSalida.askNewTarifa();
+	}
+
 	public double getPrecio() {
 		return precio;
 	}

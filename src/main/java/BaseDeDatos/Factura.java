@@ -72,12 +72,12 @@ public class Factura implements TieneFecha, Serializable {
 		return new Factura(codigo, tarifa, date, pf, cliente);
 	}
 
-	static public Factura darDeAlta(Cliente cliente) {
-		return IO.in.askNewFactura(cliente);
+	static public Factura darDeAlta(InOut entradaSalida, Cliente cliente) {
+		return entradaSalida.askNewFactura(cliente);
 	}
 
 	@Override
-	public String toString(){	// TODO: Profesor(muere porque el periodo de facturación no tiene hora) solucionado
+	public String toString(){
 		return "Factura: " + codigo + " emitida el " + fechaEmision.format(BaseDeDatos.DMY) +
 				"\nPeriodo de facturacion" + periodoFacturacion.getStart().format(BaseDeDatos.DMY) + " - " + periodoFacturacion.getEnd().format(BaseDeDatos.DMY) +
 				"\nImporte: " + importe;

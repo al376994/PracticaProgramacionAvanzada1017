@@ -1,5 +1,7 @@
 package BaseDeDatos;
 
+import Auxiliares.IOTerminal;
+import Auxiliares.InOut;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +18,11 @@ class ClienteTest {
 	@BeforeAll
 	static void generateClientes() {
 		b1 = new BaseDeDatos();
-		c1 = Cliente.darDeAlta(true, true);
-		c2 = Cliente.darDeAlta(true, true);
-		c3 = Cliente.darDeAlta(false, true);
-		c4 = Cliente.darDeAlta(false, true);
+		InOut entradaSalida = new IOTerminal();
+		c1 = Cliente.darDeAlta(entradaSalida, true, true);
+		c2 = Cliente.darDeAlta(entradaSalida, true, true);
+		c3 = Cliente.darDeAlta(entradaSalida, false, true);
+		c4 = Cliente.darDeAlta(entradaSalida, false, true);
 	}
 
 	@Test

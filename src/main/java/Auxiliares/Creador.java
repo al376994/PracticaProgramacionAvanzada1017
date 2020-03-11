@@ -5,37 +5,43 @@ import BaseDeDatos.Factura;
 
 public class Creador {
 
-	static public Cliente nuevoCliente(boolean esParticular, boolean esRandom) {
+	InOut entradaSalida;
+
+	public Creador(InOut entradaSalida) {
+		this.entradaSalida = entradaSalida;
+	}
+
+	public Cliente nuevoCliente(boolean esParticular, boolean esRandom) {
 		Cliente cliente;
 		if (esParticular){
-			if (esRandom) cliente = Cliente.darDeAlta(true, true);
-			else cliente = Cliente.darDeAlta(true, false);
+			if (esRandom) cliente = Cliente.darDeAlta(entradaSalida, true, true);
+			else cliente = Cliente.darDeAlta(entradaSalida, true, false);
 		} else {
-			if (esRandom) cliente = Cliente.darDeAlta(false, true);
-			else cliente = Cliente.darDeAlta(false, false);
+			if (esRandom) cliente = Cliente.darDeAlta(entradaSalida, false, true);
+			else cliente = Cliente.darDeAlta(entradaSalida, false, false);
 		}
 		return cliente;
 	}
 
-	static public Llamada nuevaLlamada(boolean random) {
+	public Llamada nuevaLlamada(boolean random) {
 		if (random) {
 			return Llamada.generateRandomLlamada();
 		} else {
-			return Llamada.darDeAlta();
+			return Llamada.darDeAlta(entradaSalida);
 		}
 	}
 
-	static public Factura nuevaFactura(Cliente cliente, boolean random) {
+	public Factura nuevaFactura(Cliente cliente, boolean random) {
 		Factura factura;
 		if (random) {
 			factura = Factura.darDeAltaRandom(cliente);
 		} else {
-			factura = Factura.darDeAlta(cliente);
+			factura = Factura.darDeAlta(entradaSalida, cliente);
 		}
 		return factura;
 	}
 
-	static public Tarifa nuevaTarifa() {
-		return IO.in.askNewTarifa();
+	public Tarifa nuevaTarifa() {
+		return entradaSalida.askNewTarifa();
 	}
 }

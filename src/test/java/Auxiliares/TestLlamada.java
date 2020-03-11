@@ -75,6 +75,5 @@ public class TestLlamada {
 		assertEquals(l3.toString(),
 				"Llamada al número 345678912 el " + d3.format(dmy) + " a las " +
 						t3.format(hms) + " con una duración de 33 segundos.");
-		System.out.println(l1 + "\n" + l2 + "\n" + l3);
 	}
 }

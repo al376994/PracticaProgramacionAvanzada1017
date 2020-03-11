@@ -1,9 +1,11 @@
+import Auxiliares.IOTerminal;
+import Auxiliares.InOut;
 import BaseDeDatos.BaseDeDatos;
 import Menu.MenuTerminal;
 
 public class Main {
 
-    public static void main(String args[]) {    // TODO: Profesor(el tipo estaba mal, no se podía ejecutar) si lo estaba lo arreglé después porque ahora esta bien
+    public static void main(String args[]) {
 
         BaseDeDatos baseDeDatos;
 

@@ -1,9 +1,6 @@
 package BaseDeDatos;
 
-import Auxiliares.Direccion;
-import Auxiliares.Llamada;
-import Auxiliares.Tarifa;
-import Auxiliares.TieneFecha;
+import Auxiliares.*;
 import es.uji.www.GeneradorDatosINE;
 
 import java.io.Serializable;
@@ -44,15 +41,15 @@ public abstract class Cliente implements TieneFecha, Serializable {
 		this.llamadas = llamadas;
 	}
 
-	public static Cliente darDeAlta(boolean esParticular, boolean esRandom) {
+	public static Cliente darDeAlta(InOut entradaSalida, boolean esParticular, boolean esRandom) {
 		if (esParticular) {
 			Particular particular;
-			if (!esRandom) particular = Particular.darDeAlta();
+			if (!esRandom) particular = Particular.darDeAlta(entradaSalida);
 			else particular = Particular.darDeAltaRandom();
 			return particular;
 		} else {
 			Empresa empresa;
-			if (!esRandom) empresa = Empresa.darDeAlta();
+			if (!esRandom) empresa = Empresa.darDeAlta(entradaSalida);
 			else empresa = Empresa.darDeAltaRandom();
 			return empresa;
 		}

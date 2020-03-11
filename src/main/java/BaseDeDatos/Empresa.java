@@ -1,9 +1,6 @@
 package BaseDeDatos;
 
-import Auxiliares.Direccion;
-import Auxiliares.IO;
-import Auxiliares.Llamada;
-import Auxiliares.Tarifa;
+import Auxiliares.*;
 import es.uji.www.GeneradorDatosINE;
 
 import java.io.Serializable;
@@ -36,8 +33,8 @@ public class Empresa extends Cliente implements Serializable {
 				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
 	}
 
-	static Empresa darDeAlta() {
-		String[] data = IO.in.askNewClienteData(false);
+	static Empresa darDeAlta(InOut entradaSalida) {
+		String[] data = entradaSalida.askNewClienteData(false);
 		String nombreEmpresa = data[0];
 		String nifEmpresa = data[1];
 		String provinciaEmpresa = data[2];

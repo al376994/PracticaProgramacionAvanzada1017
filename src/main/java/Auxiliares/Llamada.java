@@ -28,13 +28,14 @@ public class Llamada implements TieneFecha, Serializable {
 
 	static public Llamada generateRandomLlamada() {
 		GeneradorDatosINE g = new GeneradorDatosINE();
-		String tel =  "9" + g.getNIF().substring(0, 8);
+		String nif = g.getNIF();
+		String tel =  "9" + nif.substring(0, nif.length()-1);
 		Duration dur = BaseDeDatos.randomDuration(10, 60);
 		return new Llamada(tel, LocalDate.now(), LocalTime.now(), dur);
 	}
 
-	static public Llamada darDeAlta() {
-		return IO.in.askNewLlamada();
+	static public Llamada darDeAlta(InOut entradaSalida) {
+		return entradaSalida.askNewLlamada();
 	}
 
 	public Duration getDuracion() {
