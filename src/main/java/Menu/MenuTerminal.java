@@ -149,7 +149,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 
 	private void printCliente() {
 		Cliente cliente = IO.in.askForCliente(baseDeDatos);
-		IO.out.print(cliente);
+		IO.out.print("\n" + cliente + "\n");
 		IO.waitIntro();
 	}
 
@@ -185,19 +185,19 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		switch (option) {
 			case 1:
 				cliente = Creador.nuevoCliente(true, false);
-				IO.out.print(cliente);
+				IO.out.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 2:
 				cliente = Creador.nuevoCliente(true, true);
-				IO.out.print(cliente);
+				IO.out.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 3:
 				cliente = Creador.nuevoCliente(false, false);
-				IO.out.print(cliente);
+				IO.out.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 4:
 				cliente = Creador.nuevoCliente(false, true);
-				IO.out.print(cliente);
+				IO.out.print("\n" + cliente + "\n");
 				return baseDeDatos.addClient(cliente);
 			case 5:
 				return true;
@@ -230,7 +230,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	private boolean nuevaLlamada(boolean random) {
 		String nif = IO.in.askNIF();
 		Llamada llamada = Creador.nuevaLlamada(random);
-		IO.out.print(llamada);
+		IO.out.print("\n" + llamada + "\n");
 		return baseDeDatos.addLlamada(nif, llamada);
 	}
 
@@ -256,7 +256,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	private boolean nuevaFactura(boolean random) {
 		Cliente cliente = IO.in.askForCliente(baseDeDatos);
 		Factura factura = Creador.nuevaFactura(cliente, random);
-		IO.out.print(factura);
+		IO.out.print("\n" + factura + "\n");
 		return baseDeDatos.addFactura(factura);
 	}
 
