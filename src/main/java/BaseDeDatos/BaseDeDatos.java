@@ -71,7 +71,7 @@ public class BaseDeDatos implements Serializable {
 			return true;
 		}
 		return false;
-	}	//TODO test
+	}
 
 	public boolean cambiarTarifa(String nif, Tarifa tarifa) {
 		Cliente cliente = getCliente(nif);
