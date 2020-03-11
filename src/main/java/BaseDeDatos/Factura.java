@@ -14,7 +14,6 @@ import java.time.LocalDate;
 
 public class Factura implements TieneFecha, Serializable {
 
-	private BaseDeDatos baseDeDatos;
 	private String codigo;
 	private Tarifa tarifa;
 	private LocalDate fechaEmision;
@@ -22,8 +21,7 @@ public class Factura implements TieneFecha, Serializable {
 	private Cliente cliente;
 	private double importe;
 
-	public Factura(BaseDeDatos baseDeDatos, String codigo, Tarifa tarifa, LocalDate fechaEmision, PeriodoFacturacion periodoFacturacion, Cliente cliente) {
-		this.baseDeDatos = baseDeDatos;
+	public Factura(String codigo, Tarifa tarifa, LocalDate fechaEmision, PeriodoFacturacion periodoFacturacion, Cliente cliente) {
 		this.codigo = codigo;
 		this.tarifa = tarifa;
 		this.fechaEmision = fechaEmision;
@@ -66,16 +64,16 @@ public class Factura implements TieneFecha, Serializable {
 		importe = calculaImporte();
 	}
 
-	static public Factura darDeAltaRandom(BaseDeDatos baseDeDatos, Cliente cliente) {
+	static public Factura darDeAltaRandom(Cliente cliente) {
 		String codigo = cliente.getNextFacturaCodigo();
 		Tarifa tarifa = new Tarifa();
 		LocalDate date = LocalDate.now();
 		PeriodoFacturacion pf = new PeriodoFacturacion(date, date.plusMonths(1));
-		return new Factura(baseDeDatos, codigo, tarifa, date, pf, cliente);
+		return new Factura(codigo, tarifa, date, pf, cliente);
 	}
 
-	static public Factura darDeAlta(BaseDeDatos baseDeDatos, Cliente cliente) {
-		return IO.in.askNewFactura(baseDeDatos, cliente);
+	static public Factura darDeAlta(Cliente cliente) {
+		return IO.in.askNewFactura(cliente);
 	}
 
 	@Override

@@ -20,12 +20,12 @@ public class Particular extends Cliente implements Serializable {
 
 	private String apellido;
 
-	private Particular(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas, String apellido) {
-		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
+	private Particular(String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas, String apellido) {
+		super(nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 		this.apellido = apellido;
 	}
 
-	static Particular darDeAltaRandom(BaseDeDatos baseDeDatos) {
+	static Particular darDeAltaRandom() {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreParticular = g.getNombre();
@@ -37,11 +37,11 @@ public class Particular extends Cliente implements Serializable {
 		List<Llamada> llamadasParticular = new ArrayList<>();
 		String apellidoParticular = g.getApellido();
 
-		return new Particular(baseDeDatos, nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
+		return new Particular(nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
 				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
 	}
 
-	static Particular darDeAlta(BaseDeDatos baseDeDatos) {
+	static Particular darDeAlta() {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 		String[] data = IO.in.askNewClienteData(true);
 
@@ -54,7 +54,7 @@ public class Particular extends Cliente implements Serializable {
 		List<Llamada> llamadasParticular = new ArrayList<>();
 		String apellidoParticular = data[4];
 
-		return new Particular(baseDeDatos, nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
+		return new Particular(nombreParticular, nifParticular, direccionParticular, correoElectronicoParticular,
 				LocalDate.now(), new Tarifa(), facturasParticular, llamadasParticular, apellidoParticular);
 	}
 

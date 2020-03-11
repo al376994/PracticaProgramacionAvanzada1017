@@ -1,6 +1,7 @@
 package Auxiliares;
 
 import BaseDeDatos.BaseDeDatos;
+import es.uji.www.GeneradorDatosINE;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -23,6 +24,13 @@ public class Llamada implements TieneFecha, Serializable {
 		this.fecha = fecha;
 		this.hora = hora;
 		this.duracion = duracion;
+	}
+
+	static public Llamada generateRandomLlamada() {
+		GeneradorDatosINE g = new GeneradorDatosINE();
+		String tel =  "9" + g.getNIF().substring(0, 7);
+		Duration dur = BaseDeDatos.randomDuration(10, 60);
+		return new Llamada(tel, LocalDate.now(), LocalTime.now(), dur);
 	}
 
 	static public Llamada darDeAlta() {

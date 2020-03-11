@@ -23,7 +23,7 @@ import java.util.List;
 
 public abstract class Cliente implements TieneFecha, Serializable {
 
-	private BaseDeDatos baseDeDatos;
+	//private BaseDeDatos baseDeDatos;
 	private String nombre;
 	private String nif;
 	private Direccion direccion;
@@ -34,8 +34,8 @@ public abstract class Cliente implements TieneFecha, Serializable {
 	private List<Llamada> llamadas;
 	private int codigoFacturaActual = 1;
 
-	Cliente(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
-		this.baseDeDatos = baseDeDatos;
+	Cliente(/*BaseDeDatos baseDeDatos, */String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
+		//this.baseDeDatos = baseDeDatos;
 		this.nombre = nombre;
 		this.nif = nif;
 		this.direccion = direccion;
@@ -46,16 +46,16 @@ public abstract class Cliente implements TieneFecha, Serializable {
 		this.llamadas = llamadas;
 	}
 
-	static Cliente darDeAlta(BaseDeDatos baseDeDatos, boolean esParticular, boolean esRandom) {
+	public static Cliente darDeAlta(/*BaseDeDatos baseDeDatos, */boolean esParticular, boolean esRandom) {
 		if (esParticular) {
 			Particular particular;
-			if (!esRandom) particular = Particular.darDeAlta(baseDeDatos);
-			else particular = Particular.darDeAltaRandom(baseDeDatos);
+			if (!esRandom) particular = Particular.darDeAlta();
+			else particular = Particular.darDeAltaRandom();
 			return particular;
 		} else {
 			Empresa empresa;
-			if (!esRandom) empresa = Empresa.darDeAlta(baseDeDatos);
-			else empresa = Empresa.darDeAltaRandom(baseDeDatos);
+			if (!esRandom) empresa = Empresa.darDeAlta();
+			else empresa = Empresa.darDeAltaRandom();
 			return empresa;
 		}
 
@@ -77,15 +77,8 @@ public abstract class Cliente implements TieneFecha, Serializable {
 		this.tarifa = tarifa;
 	}
 
-	private Llamada generateRandomLlamada() {
-		GeneradorDatosINE g = new GeneradorDatosINE();
-		String tel =  "9" + g.getNIF().substring(0, 7);
-		Duration dur = BaseDeDatos.randomDuration(10, 60);
-		return new Llamada(tel, LocalDate.now(), LocalTime.now(), dur);
-	}
-
 	public void darDeAltaLlamadaRandom() {
-		llamadas.add(generateRandomLlamada());
+		llamadas.add(Llamada.generateRandomLlamada());
 		updateImporteFacturas();
 	}
 

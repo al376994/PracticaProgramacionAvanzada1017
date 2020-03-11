@@ -1,9 +1,6 @@
 package BaseDeDatos;
 
-import Auxiliares.IO;
-import Auxiliares.Llamada;
-import Auxiliares.PeriodoFacturacion;
-import Auxiliares.TieneFecha;
+import Auxiliares.*;
 import es.uji.www.GeneradorDatosINE;
 
 import java.io.*;
@@ -43,11 +40,6 @@ public class BaseDeDatos implements Serializable {
 		return facturas;
 	}
 
-	public Cliente getCliente(String nif) {
-		if (clientes.containsKey(nif)) return clientes.get(nif);
-		else return null;
-	}
-
 	public static Duration randomDuration(int min, int max) {
 		if (min > max) {
 			int tmp = max;
@@ -57,20 +49,6 @@ public class BaseDeDatos implements Serializable {
 		if (min == max) return Duration.ofSeconds(min);
 		return Duration.ofSeconds( (long)(Math.random() * ((max - min) + 1)) + min );
 	}
-
-	public boolean nuevoParticular(boolean random) {
-		Cliente cliente;
-		if (random) cliente = Cliente.darDeAlta(this, true, true);
-		else cliente = Cliente.darDeAlta(this, true, false);
-		return addClient(cliente);
-	}	//TODO mover a MenuOpciones
-
-	public boolean nuevaEmpresa(boolean random) {
-		Cliente cliente;
-		if (random) cliente = Cliente.darDeAlta(this, false, true);
-		else cliente = Cliente.darDeAlta(this, false, false);
-		return addClient(cliente);
-	}		//TODO mover a MenuOpciones
 
 	public boolean addClient(Cliente cliente) {
 		String key = cliente.getNif();
@@ -83,11 +61,9 @@ public class BaseDeDatos implements Serializable {
 		return false;
 	}
 
-	public boolean askBorrarCliente() {
-		String nif;
-		nif = IO.in.askNIF();
-		return borrarCliente(nif);
-	}					//TODO mover a MenuOpciones
+	public Cliente getCliente(String nif) {
+		return clientes.get(nif);
+	}
 
 	public boolean borrarCliente(String nif) {
 		if (clientes.containsKey(nif)) {
@@ -95,70 +71,34 @@ public class BaseDeDatos implements Serializable {
 			return true;
 		}
 		return false;
-	}		//TODO test
+	}	//TODO test
 
-	public void cambiarTarifa() {
-		Cliente cliente = IO.in.askForCliente(this);
-		cliente.cambiarTarifa(IO.in.askNewTarifa());
-	}
-
-	public void printCliente() {
-		Cliente cliente = IO.in.askForCliente(this);
-		IO.out.print(cliente);
-		if (EN_TERMINAL) IO.waitIntro();
-	}						//TODO mover a menuOpciones o Output
-
-	public void listarClientes() {
-		if (EN_TERMINAL) IO.out.print("\n");
-		IO.out.listar(clientes.values());
-	}
-
-	public boolean nuevaLlamada(boolean random) {
-		Cliente cliente = IO.in.askForCliente(this);
-		if (random) {
-			cliente.darDeAltaLlamadaRandom();
-			return true;
-		} else {
-			cliente.darDeAltaLlamada(Llamada.darDeAlta());
+	public boolean cambiarTarifa(String nif, Tarifa tarifa) {
+		Cliente cliente = getCliente(nif);
+		if (cliente != null) {
+			cliente.cambiarTarifa(tarifa);
 			return true;
 		}
+		return false;
 	}
 
-	public void listarLlamadas() {
-		IO.out.print("\n");
-		Cliente cliente = IO.in.askForCliente(this);
-		IO.out.listar(cliente.getLlamadas());
-	}						//TODO mover a MenuOpciones
+	public boolean addLlamada(String nif, Llamada llamada) {
+		Cliente cliente = getCliente(nif);
+		int nLlamadas = cliente.getLlamadas().size();
+		cliente.darDeAltaLlamada(llamada);
+		return cliente.getLlamadas().size() == nLlamadas+1;
+	}
 
-	public boolean nuevaFactura(boolean random) {
-		Cliente cliente = IO.in.askForCliente(this);
-		Factura factura;
-		if (random) {
-			factura = Factura.darDeAltaRandom(this, cliente);
-		} else {
-			factura = Factura.darDeAlta(this, cliente);
-		}
+	public boolean addFactura(Factura factura) {
+		Cliente cliente = factura.getCliente();
+		int nFacturasCliente = cliente.getFacturas().size();
+		int nFacturas = facturas.size();
 		cliente.addFactura(factura);
-		addFactura(factura);
-		return true;
-	}
-
-	public void addFactura(Factura factura) {
 		facturas.put(factura.getCodigo(), factura);
-		factura.getCliente().updateCodigoFacturaActual();
+		cliente.updateCodigoFacturaActual();
+		return (cliente.getFacturas().size() > nFacturasCliente) && (facturas.size() > nFacturas);
+
 	}
-
-	public void printFactura() {
-		Factura factura = IO.in.askForFactura(this);
-		IO.out.print(factura);
-		if (EN_TERMINAL) IO.waitIntro();
-	}						//TODO mover a MenuOpciones o Output
-
-	public void listarFacturas() {
-		IO.out.print("\n");
-		Cliente cliente = IO.in.askForCliente(this);
-		IO.out.listar(cliente.getFacturas().values());
-	}						//TODO mover a MenuOpciones
 
 	public <T extends TieneFecha> Collection<T> elementosEntreFechas(ArrayList<T> lista, LocalDate desde, LocalDate hasta) {
 		PeriodoFacturacion entreEstasFechas = new PeriodoFacturacion(desde, hasta);
@@ -167,11 +107,6 @@ public class BaseDeDatos implements Serializable {
 			if (entreEstasFechas.inPeriodoFacturacion(elemento.getFecha())) listaEntreFechas.add(elemento);
 		}
 		return listaEntreFechas;
-	}
-
-	public boolean existsNif(String nif) {
-		if (getCliente(nif) == null) return false;
-		return true;
 	}
 
 	public void saveData(){
@@ -209,9 +144,6 @@ public class BaseDeDatos implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
-
-
 
 	public void exitWithoutSave() {
 		System.exit(0);

@@ -161,7 +161,7 @@ public class Input {	// TODO: Profesor(deberíais usar la herencia para evitar t
 		return factura;
 	}
 
-	public Factura askNewFactura(BaseDeDatos baseDeDatos, Cliente cliente) {
+	public Factura askNewFactura(Cliente cliente) {
 		String codigo;
 		Tarifa tarifa;
 		LocalDate date;
@@ -172,6 +172,6 @@ public class Input {	// TODO: Profesor(deberíais usar la herencia para evitar t
 			date = IO.in.askDate("de la factura");
 			pf = PeriodoFacturacion.askDates();
 		}
-		return new Factura(baseDeDatos, codigo, tarifa, date, pf, cliente);
+		return new Factura(codigo, tarifa, date, pf, cliente);
 	}
 }

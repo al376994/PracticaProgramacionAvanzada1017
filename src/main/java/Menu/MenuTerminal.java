@@ -1,7 +1,9 @@
 package Menu;
 
+import Auxiliares.Creador;
 import Auxiliares.IO;
 import Auxiliares.Llamada;
+import Auxiliares.Tarifa;
 import BaseDeDatos.BaseDeDatos;
 import BaseDeDatos.Cliente;
 import BaseDeDatos.Factura;
@@ -20,7 +22,9 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	public void run(BaseDeDatos baseDeDatos) {
 		this.baseDeDatos = baseDeDatos;
 		IO.out.print("Menu de Terminal de la aplicación de Facturación");
-		chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
+		while (true) {
+			chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
+		}
 	}
 
 	private String getOpciones(String[] opciones) {
@@ -45,13 +49,13 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 			case 3:																	//Crear llamada
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaLlamada));
 				option = IO.in.getOption(inputText);
-				chooseOptionNuevaLlamada(option);
+				printIsSatisfactory(chooseOptionNuevaLlamada(option));
 				printIsSatisfactory(true);
 				return true;
 			case 4:																	//Crear factura
 				IO.out.print("\n" + getOpciones(MenuOpciones.listaOpcionesNuevaFactura));
 				option = IO.in.getOption(inputText);
-				chooseOptionNuevaFactura(option);
+				printIsSatisfactory(chooseOptionNuevaFactura(option));
 				printIsSatisfactory(true);
 				return true;
 			case -1:																//Opciones de salida
@@ -67,8 +71,12 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		return chooseOptionSet(MenuOpciones.OPCIONES_PRINCIPALES);
 	}
 
-	// Todos los choose a loq eu llama chooseOptionSet a partir de aqui
-	// En los switch solo van sentencias simples, si es necesario algo mas complejo crea una funcion en la zona de abajo
+	// Todos los choose a lo qeu llama chooseOptionSet a partir de aqui
+	// En los switch solo van sentencias simples, si es necesario algo mas complejo crea una funcion debajo del choose
+
+	//	********************************************************************************************************  \\
+	//	******************************************OPCIONES_PRINCIPALES******************************************  \\
+	//	********************************************************************************************************  \\
 
 	private void chooseOptionPrincipales(int option) {
 		switch (option) {
@@ -76,32 +84,31 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 				chooseOptionSet(MenuOpciones.OPCIONES_NUEVO_CLIENTE);
 				break;
 			case 2:											// BORRAR UN CLIENTE EXISTENTE
-				printIsSatisfactory(baseDeDatos.askBorrarCliente());
+				printIsSatisfactory(askBorrarCliente());
 				break;
 			case 3:											// CAMBIAR LA TARIFA DE UN CLIENTE
-				baseDeDatos.cambiarTarifa();
+				printIsSatisfactory(cambiarTarifa());
 				break;
 			case 4:											// MOSTRAR LOS DATOS DE UN CLIENTE
-				baseDeDatos.printCliente();
+				printCliente();
 				break;
 			case 5:											// MOSTRAR LOS DATOS DE TODOS LOS CLIENTES
-				baseDeDatos.listarClientes();
-				IO.waitIntro();
+				listarClientes();
 				break;
 			case 6:											// CREAR UNA LLAMADA PARA UN CLIENTE
 				chooseOptionSet(MenuOpciones.OPCIONES_NUEVA_LLAMADA);
 				break;
 			case 7:											// MOSTRAR LLAMADAS DE UN CLIENTE
-				baseDeDatos.listarLlamadas();
+				listarLlamadas();
 				break;
 			case 8:											//CREAR UNA FACTURA PARA UN CLIENTE
 				chooseOptionSet(MenuOpciones.OPCIONES_NUEVA_FACTURA);
 				break;
 			case 9:											//RECUPERAR FACTURA A PARTIR DE CODIGO
-				baseDeDatos.printFactura();
+				printFactura();
 				break;
 			case 10:										//RECUPERAR FACTURAS DE UN CLIENTE
-				baseDeDatos.listarFacturas();
+				listarFacturas();
 				break;
 			case 11:										//LISTAR CLIENTES ENTRE FECHAS
 				IO.out.listar(listarClientesEntreFechas());
@@ -112,10 +119,10 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 			case 13:										//LISTAR FACTURAS ENTRE FECHAS
 				IO.out.listar(listarFacturasEntreFechas());
 				break;
-			case 14:										//LISTAR FACTURAS ENTRE FECHAS
+			case 14:										//GUARDAR BASE DE DATOS
 				baseDeDatos.saveData();
 				break;
-			case 15:										//LISTAR FACTURAS ENTRE FECHAS
+			case 15:										//CARGAR BASE DE DATOS
 				baseDeDatos.loadData();
 				break;
 			case 16:										// CERRAR EL PROGRAMA
@@ -127,16 +134,66 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		}
 	}
 
+	private boolean askBorrarCliente() {
+		String nif;
+		nif = IO.in.askNIF();
+		return baseDeDatos.borrarCliente(nif);
+	}
+
+	private boolean cambiarTarifa() {
+		String nif = IO.in.askNIF();
+		Tarifa tarifa = Creador.nuevaTarifa();
+		return baseDeDatos.cambiarTarifa(nif, tarifa);
+	}
+
+	private void printCliente() {
+		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		IO.out.print(cliente);
+		IO.waitIntro();
+	}
+
+	private void listarClientes() {
+		IO.out.print("\n");
+		IO.out.listar(baseDeDatos.getClientes().values());
+	}
+
+	private void listarLlamadas() {
+		IO.out.print("\n");
+		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		IO.out.listar(cliente.getLlamadas());
+	}
+
+	private void printFactura() {
+		Factura factura = IO.in.askForFactura(baseDeDatos);
+		IO.out.print(factura);
+		IO.waitIntro();
+	}
+
+	private void listarFacturas() {
+		IO.out.print("\n");
+		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		IO.out.listar(cliente.getFacturas().values());
+	}
+
+	//	********************************************************************************************************  \\
+	//	*****************************************OPCIONES_NUEVO_CLIENTE*****************************************  \\
+	//	********************************************************************************************************  \\
+
 	private boolean chooseOptionNuevoCliente(int option){
+		Cliente cliente;
 		switch (option) {
 			case 1:
-				return baseDeDatos.nuevoParticular(false);
+				cliente = Creador.nuevoCliente(true, false);
+				return baseDeDatos.addClient(cliente);
 			case 2:
-				return baseDeDatos.nuevoParticular(true);
+				cliente = Creador.nuevoCliente(true, true);
+				return baseDeDatos.addClient(cliente);
 			case 3:
-				return baseDeDatos.nuevaEmpresa(false);
+				cliente = Creador.nuevoCliente(false, false);
+				return baseDeDatos.addClient(cliente);
 			case 4:
-				return baseDeDatos.nuevaEmpresa(true);
+				cliente = Creador.nuevoCliente(false, true);
+				return baseDeDatos.addClient(cliente);
 			case 5:
 				return true;
 			default:
@@ -146,12 +203,16 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		return false;
 	}
 
+	//	********************************************************************************************************  \\
+	//	*****************************************OPCIONES_NUEVA_LLAMADA*****************************************  \\
+	//	********************************************************************************************************  \\
+
 	private boolean chooseOptionNuevaLlamada(int option){
 		switch (option) {
 			case 1:
-				return baseDeDatos.nuevaLlamada(false);
+				return nuevaLlamada(false);
 			case 2:
-				return baseDeDatos.nuevaLlamada(true);
+				return nuevaLlamada(true);
 			case 3:
 				return true;
 			default:
@@ -161,12 +222,22 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		return false;
 	}
 
+	private boolean nuevaLlamada(boolean random) {
+		String nif = IO.in.askNIF();
+		Llamada llamada = Creador.nuevaLlamada(random);
+		return baseDeDatos.addLlamada(nif, llamada);
+	}
+
+	//	********************************************************************************************************  \\
+	//	*****************************************OPCIONES_NUEVA_FACTURA*****************************************  \\
+	//	********************************************************************************************************  \\
+
 	private boolean chooseOptionNuevaFactura(int option) {
 		switch (option) {
 			case 1:
-				return baseDeDatos.nuevaFactura(false);
+				return nuevaFactura(false);
 			case 2:
-				return baseDeDatos.nuevaFactura(true);
+				return nuevaFactura(true);
 			case 3:
 				return true;
 			default:
@@ -175,6 +246,16 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		}
 		return false;
 	}
+
+	private boolean nuevaFactura(boolean random) {
+		Cliente cliente = IO.in.askForCliente(baseDeDatos);
+		Factura factura = Creador.nuevaFactura(cliente, random);
+		return baseDeDatos.addFactura(factura);
+	}
+
+	//	*********************************************************************************************************  \\
+	//	*********************************************OPCIONES_SALIDA*********************************************  \\
+	//	*********************************************************************************************************  \\
 
 	private void chooseOptionSalida(int option) {
 		switch (option) {
@@ -224,9 +305,9 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		IO.waitIntro();
 	}
 
-	private boolean wrongOptionWriten(int set) {
+	private void wrongOptionWriten(int set) {
 		IO.out.print("Write one of the options.");
 		IO.waitIntro();
-		return chooseOptionSet(set);
+		chooseOptionSet(set);
 	}
 }

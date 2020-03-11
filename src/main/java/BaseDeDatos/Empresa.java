@@ -17,11 +17,11 @@ import java.util.List;
 
 public class Empresa extends Cliente implements Serializable {
 
-	private Empresa(BaseDeDatos baseDeDatos, String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
-		super(baseDeDatos, nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
+	private Empresa(String nombre, String nif, Direccion direccion, String correoElectronico, LocalDate fechaDeAlta, Tarifa tarifa, Hashtable<String, Factura> facturas, List<Llamada> llamadas) {
+		super(nombre, nif, direccion, correoElectronico, fechaDeAlta, tarifa, facturas, llamadas);
 	}
 
-	static Empresa darDeAltaRandom(BaseDeDatos baseDeDatos) {
+	static Empresa darDeAltaRandom() {
 		GeneradorDatosINE g = new GeneradorDatosINE();
 
 		String nombreEmpresa = g.getNombre();
@@ -32,11 +32,11 @@ public class Empresa extends Cliente implements Serializable {
 		Hashtable<String, Factura> facturasEmpresa = new Hashtable<String, Factura>();
 		List<Llamada> llamadasEmpresa = new ArrayList<>();
 
-		return new Empresa(baseDeDatos, nombreEmpresa, nifEmpresa, direccionEmpresa, correoElectronicoEmpresa,
+		return new Empresa(nombreEmpresa, nifEmpresa, direccionEmpresa, correoElectronicoEmpresa,
 				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
 	}
 
-	static Empresa darDeAlta(BaseDeDatos baseDeDatos) {
+	static Empresa darDeAlta() {
 		String[] data = IO.in.askNewClienteData(false);
 		String nombreEmpresa = data[0];
 		String nifEmpresa = data[1];
@@ -46,7 +46,7 @@ public class Empresa extends Cliente implements Serializable {
 		Hashtable<String, Factura> facturasEmpresa = new Hashtable<String, Factura>();
 		List<Llamada> llamadasEmpresa = new ArrayList<>();
 
-		return new Empresa(baseDeDatos, nombreEmpresa, nifEmpresa, direccionEmpresa, correoElectronicoEmpresa,
+		return new Empresa(nombreEmpresa, nifEmpresa, direccionEmpresa, correoElectronicoEmpresa,
 				LocalDate.now(), new Tarifa(), facturasEmpresa, llamadasEmpresa);
 	}
 
