@@ -108,7 +108,7 @@ public class Input {	// TODO: Profesor(deberíais usar la herencia para evitar t
 
 	public String askNIF() {
 		String nif;
-		if (BaseDeDatos.EN_TERMINAL) nif = fromTerminalAskString("\nEscribe el nif del cliente que quieres borrar: ");
+		if (BaseDeDatos.EN_TERMINAL) nif = fromTerminalAskString("\nEscribe el nif del cliente: ");
 		else IO.out.print("No implementado");
 		return nif;
 	}
@@ -143,7 +143,7 @@ public class Input {	// TODO: Profesor(deberíais usar la herencia para evitar t
 	public Tarifa askNewTarifa() {
 		Tarifa tarifa;
 		if (BaseDeDatos.EN_TERMINAL) {
-			tarifa = new Tarifa(IO.in.fromTerminalAskDouble("Introduce el precio de la nueva tarifa"));
+			tarifa = new Tarifa(IO.in.fromTerminalAskDouble("Introduce el precio de la nueva tarifa: "));
 		}
 		else IO.out.print("No implementado");
 		return tarifa;
