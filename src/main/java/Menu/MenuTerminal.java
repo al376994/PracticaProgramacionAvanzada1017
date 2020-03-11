@@ -185,15 +185,19 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 		switch (option) {
 			case 1:
 				cliente = Creador.nuevoCliente(true, false);
+				IO.out.print(cliente);
 				return baseDeDatos.addClient(cliente);
 			case 2:
 				cliente = Creador.nuevoCliente(true, true);
+				IO.out.print(cliente);
 				return baseDeDatos.addClient(cliente);
 			case 3:
 				cliente = Creador.nuevoCliente(false, false);
+				IO.out.print(cliente);
 				return baseDeDatos.addClient(cliente);
 			case 4:
 				cliente = Creador.nuevoCliente(false, true);
+				IO.out.print(cliente);
 				return baseDeDatos.addClient(cliente);
 			case 5:
 				return true;
@@ -226,6 +230,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	private boolean nuevaLlamada(boolean random) {
 		String nif = IO.in.askNIF();
 		Llamada llamada = Creador.nuevaLlamada(random);
+		IO.out.print(llamada);
 		return baseDeDatos.addLlamada(nif, llamada);
 	}
 
@@ -251,6 +256,7 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 	private boolean nuevaFactura(boolean random) {
 		Cliente cliente = IO.in.askForCliente(baseDeDatos);
 		Factura factura = Creador.nuevaFactura(cliente, random);
+		IO.out.print(factura);
 		return baseDeDatos.addFactura(factura);
 	}
 
@@ -279,24 +285,24 @@ public class MenuTerminal {	// TODO: Profesor(El menú no debería tener la base
 
 	private Collection<Cliente> listarClientesEntreFechas() {
 		ArrayList<Cliente> clientes = new ArrayList<>(baseDeDatos.getClientes().values());
-		LocalDate desde = IO.in.askDate("");
-		LocalDate hasta = IO.in.askDate("");
+		LocalDate desde = IO.in.askDate("de la fecha inicial");
+		LocalDate hasta = IO.in.askDate("de la fecha final");
 		return baseDeDatos.elementosEntreFechas(clientes, desde, hasta);
 	}
 
 	private Collection<Llamada> listarLlamadassEntreFechas() {
 		Cliente cliente = IO.in.askForCliente(baseDeDatos);
 		ArrayList<Llamada> llamadas = new ArrayList<>(cliente.getLlamadas());
-		LocalDate desde = IO.in.askDate("");
-		LocalDate hasta = IO.in.askDate("");
+		LocalDate desde = IO.in.askDate("de la fecha inicial");
+		LocalDate hasta = IO.in.askDate("de la fecha final");
 		return baseDeDatos.elementosEntreFechas(llamadas, desde, hasta);
 	}
 
 	private Collection<Factura> listarFacturasEntreFechas() {
 		Cliente cliente = IO.in.askForCliente(baseDeDatos);
 		ArrayList<Factura> facturas = new ArrayList<>(cliente.getFacturas().values());
-		LocalDate desde = IO.in.askDate("");
-		LocalDate hasta = IO.in.askDate("");
+		LocalDate desde = IO.in.askDate("de la fecha inicial");
+		LocalDate hasta = IO.in.askDate("de la fecha final");
 		return baseDeDatos.elementosEntreFechas(facturas, desde, hasta);
 	}
 
